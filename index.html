@@ -8,13 +8,13 @@
     <style>
         body { font-family: 'Helvetica', sans-serif; margin: 0; padding: 0; background: #f8f8f8; color: #333; transition: background 0.5s, color 0.5s; }
         .container { width: 80%; margin: auto; text-align: center; }
-        .cover { position: relative; width: 100%; aspect-ratio: 16 / 9; background: url('cover.jpg') center/cover no-repeat; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-        .cover h1 { font-size: 48px; font-weight: 100; color: #fff; margin-bottom: 20px; }
+        .cover { position: relative; width: 100%; aspect-ratio: 4 / 3; background: url('cover.jpg') center/cover no-repeat; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+        .cover h1 { font-size: 36px; font-weight: 100; color: #fff; margin-bottom: 20px; }
         .btn { display: inline-block; margin: 10px 10px; padding: 12px 24px; background: rgba(255, 255, 255, 0.3); color: #fff; text-decoration: none; border-radius: 5px; font-size: 16px; font-weight: 300; border: none; transition: background 0.3s ease; }
         .btn:hover { background: rgba(255, 255, 255, 0.5); }
         .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; padding: 20px; }
         .gallery img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 5px; cursor: pointer; }
-        .comp-card-slider { display: flex; overflow-x: auto; gap: 10px; padding: 10px; scrollbar-width: none; -ms-overflow-style: none; }
+        .comp-card-slider { display: none; overflow-x: auto; gap: 10px; padding: 10px; scrollbar-width: none; -ms-overflow-style: none; }
         .comp-card-slider::-webkit-scrollbar { display: none; }
         .comp-card-slider img { width: 80%; max-width: 500px; border-radius: 5px; }
         .contact { padding: 20px; font-size: 16px; color: #666; }
@@ -34,11 +34,28 @@
             .contact a { color: #ddd; }
         }
     </style>
+    <script>
+        function toggleCompCard() {
+            var compCard = document.getElementById('comp-card');
+            if (compCard.style.display === 'none' || compCard.style.display === '') {
+                compCard.style.display = 'flex';
+            } else {
+                compCard.style.display = 'none';
+            }
+        }
+        function openModal(imageSrc) {
+            document.getElementById('modalImage').src = imageSrc;
+            document.getElementById('imageModal').style.display = 'flex';
+        }
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
+    </script>
 </head>
 <body>
     <div class="cover">
         <h1>Ga Yeon | Model Portfolio</h1>
-        <a href="#comp-card" class="btn">Comp Card</a>
+        <a href="#" class="btn" onclick="toggleCompCard()">Comp Card</a>
         <a href="#video" class="btn">Video Check</a>
     </div>
     <div class="container">
@@ -80,6 +97,11 @@
             <p>🚀 <strong>Embracing boundless thinking & genreless expression</strong></p>
             <p>🗣️ <strong>Languages: Korean, Chinese, Japanese, English (not fully fluent)</strong></p>
         </section>
+    </div>
+    
+    <div class="modal" id="imageModal" onclick="closeModal()">
+        <span class="close">&times;</span>
+        <img id="modalImage" src="" alt="Detailed View">
     </div>
 </body>
 </html>
