@@ -8,9 +8,9 @@
     <style>
         body { font-family: 'Helvetica', sans-serif; margin: 0; padding: 0; background: #f8f8f8; color: #333; transition: background 0.5s, color 0.5s; }
         .container { width: 80%; margin: auto; text-align: center; }
-        .cover { position: relative; width: 100%; aspect-ratio: 4 / 3; background: url('cover.jpg') center/cover no-repeat; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-        .cover h1 { font-size: 36px; font-weight: 100; color: #fff; margin-bottom: 20px; }
-        .btn { display: inline-block; margin: 10px 10px; padding: 12px 24px; background: rgba(255, 255, 255, 0.3); color: #fff; text-decoration: none; border-radius: 5px; font-size: 16px; font-weight: 300; border: none; transition: background 0.3s ease; }
+        .cover { position: relative; width: 100%; aspect-ratio: 4 / 3; background: url('cover.jpg') center/cover no-repeat; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; text-align: center; padding-bottom: 50px; }
+        .cover h1 { font-size: 36px; font-weight: 100; color: #fff; margin-bottom: 10px; }
+        .btn { display: inline-block; margin: 5px 5px; padding: 12px 24px; background: rgba(255, 255, 255, 0.3); color: #fff; text-decoration: none; border-radius: 5px; font-size: 16px; font-weight: 300; border: none; transition: background 0.3s ease; }
         .btn:hover { background: rgba(255, 255, 255, 0.5); }
         .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; padding: 20px; }
         .gallery img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 5px; cursor: pointer; }
@@ -66,11 +66,11 @@
         <section class="gallery">
             <img src="image1.jpg" alt="Portfolio Image 1" onclick="openModal('image1.jpg')">
             <img src="image2.jpg" alt="Portfolio Image 2" onclick="openModal('image2.jpg')">
-            <img src="image3.jPG" alt="Portfolio Image 3" onclick="openModal('image3.jPG')">
+            <img src="image3.jpg" alt="Portfolio Image 3" onclick="openModal('image3.jpg')">
             <img src="image4.jpg" alt="Portfolio Image 4" onclick="openModal('image4.jpg')">
-            <img src="image5.Jpg" alt="Portfolio Image 5" onclick="openModal('image5.Jpg')">
+            <img src="image5.JPG" alt="Portfolio Image 5" onclick="openModal('image5.JPG')">
             <img src="image6.jpg" alt="Portfolio Image 6" onclick="openModal('image6.jpg')">
-            <img src="image7.jPG" alt="Portfolio Image 7" onclick="openModal('image7.jPG')">
+            <img src="image7.jpg" alt="Portfolio Image 7" onclick="openModal('image7.jpg')">
             <img src="image8.JPG" alt="Portfolio Image 8" onclick="openModal('image8.JPG')">
         </section>
 
