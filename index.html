@@ -75,24 +75,45 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
+        /* 버튼 기본 스타일 */
         .btn {
             display: inline-block;
-            padding: 12px 24px; /* 버튼 크기 유지 */
-            font-size: 16px; /* 이전과 동일한 글꼴 크기 */
-            background: rgba(255, 255, 255, 0.3); /* 투명한 느낌 유지 */
-            color: #fff;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 500;
             text-decoration: none;
             border-radius: 5px;
-            font-weight: 300;
+            transition: background 0.3s ease, transform 0.2s ease-in-out, box-shadow 0.3s ease;
+
+            /* ✅ 버튼 배경 및 기본 스타일 */
+            background: rgba(0, 0, 0, 0.6); /* 어두운 배경 */
+            color: #fff;
             border: none;
-            transition: background 0.3s ease, transform 0.2s ease-in-out;
-            margin: 5px 5px;
+
+            /* ✅ 버튼에 그림자 블러 추가 (밝은 배경에서도 더 잘 보이도록) */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
 
-        /* 마우스 오버 시 색상 변화 */
+        /* 버튼 기본 및 커버 버튼 공통 호버 효과 */
+        .btn:hover, .cover .btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* 버튼 호버 시 색상 변경 */
+        .btn:hover {
+            background: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4); /* 호버 시 더 강한 그림자 */
+        }
+
+        /* 커버 섹션 안의 버튼(특히 밝은 배경 대응) */
+        .cover .btn {
+            background: rgba(0, 0, 0, 0.5); /* 어두운 배경 */
+            color: #fff;
+        }
+
+        /* 커버 버튼 호버 시 */
         .cover .btn:hover {
-            background: rgba(255, 255, 255, 0.5);
-            transform: scale(1.05); /* 살짝 확대 효과 추가 */
+            background: rgba(0, 0, 0, 0.7);
         }
 
         /* 모달 관련 스타일 */
