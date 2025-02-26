@@ -12,47 +12,53 @@
         .cover h1 { font-size: 36px; font-weight: 100; color: #fff; margin-bottom: 10px; }
         .btn { display: inline-block; margin: 5px 5px; padding: 12px 24px; background: rgba(255, 255, 255, 0.3); color: #fff; text-decoration: none; border-radius: 5px; font-size: 16px; font-weight: 300; border: none; transition: background 0.3s ease; }
         .btn:hover { background: rgba(255, 255, 255, 0.5); }
-        .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; padding: 20px; }
-        .gallery img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 5px; cursor: pointer; }
-        .comp-card-slider { display: none; overflow-x: auto; gap: 10px; padding: 10px; scrollbar-width: none; -ms-overflow-style: none; }
-        .comp-card-slider::-webkit-scrollbar { display: none; }
-        .comp-card-slider img { width: 80%; max-width: 500px; border-radius: 5px; }
-        .contact { padding: 20px; font-size: 16px; color: #666; }
-        .contact a { color: #666; text-decoration: none; font-weight: bold; }
+
+        /* 모달 관련 스타일 */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); justify-content: center; align-items: center; }
         .modal img { max-width: 80%; max-height: 80%; }
         .close { position: absolute; top: 20px; right: 30px; font-size: 28px; color: #fff; cursor: pointer; }
+
+        /* 화살표 스타일 추가 */
+        .arrow { position: absolute; top: 50%; transform: translateY(-50%); font-size: 32px; color: #fff; cursor: pointer; background: rgba(0, 0, 0, 0.5); padding: 10px; border-radius: 5px; }
+        .arrow-left { left: 20px; }
+        .arrow-right { right: 20px; }
+
         .video-section { padding: 20px; }
         .video-container { width: 100%; max-width: 800px; margin: auto; }
-        .about { padding: 40px 20px; background: #ddd; text-align: center; }
-        @media (prefers-color-scheme: dark) {
-            body { background: #222; color: #f8f8f8; }
-            .about { background: #444; }
-            header { color: #fff; }
-            .btn { background: rgba(255, 255, 255, 0.2); }
-            .btn:hover { background: rgba(255, 255, 255, 0.4); }
-            .contact a { color: #ddd; }
+
+        /* Glassmorphism About Section */
+        .about {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px); /* Safari 지원 */
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 600px;
+            margin: 50px auto;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3); /* 대비를 위한 테두리 추가 */
         }
     </style>
     <script>
         let compCardImages = ['compcard1.jpg', 'compcard2.jpg'];
         let currentCompCardIndex = 0;
-        
+
         function openCompCardModal() {
             document.getElementById('modalImage').src = compCardImages[currentCompCardIndex];
             document.getElementById('imageModal').style.display = 'flex';
         }
-        
+
         function nextCompCard() {
             currentCompCardIndex = (currentCompCardIndex + 1) % compCardImages.length;
             document.getElementById('modalImage').src = compCardImages[currentCompCardIndex];
         }
-        
+
         function prevCompCard() {
             currentCompCardIndex = (currentCompCardIndex - 1 + compCardImages.length) % compCardImages.length;
             document.getElementById('modalImage').src = compCardImages[currentCompCardIndex];
         }
-        
+
         function closeModal() {
             document.getElementById('imageModal').style.display = 'none';
         }
@@ -61,54 +67,52 @@
 <body>
     <div class="cover">
         <h1>Ga Yeon | Model Portfolio</h1>
-        <a href="#" class="btn" onclick="toggleCompCard()">Comp Card</a>
+        <a href="#" class="btn" onclick="openCompCardModal()">Comp Card</a>
         <a href="#video" class="btn">Video Check</a>
     </div>
-    <div class="container">
-        <section id="comp-card" class="comp-card-slider">
-            <img src="compcard1.jpg" alt="Comp Card 1">
-            <img src="compcard2.jpg" alt="Comp Card 2">
-        </section>
-        <section class="gallery">
-            <img src="image1.jpg" alt="Portfolio Image 1" onclick="openModal('image1.jpg')">
-            <img src="image2.jpg" alt="Portfolio Image 2" onclick="openModal('image2.jpg')">
-            <img src="image3.jpg" alt="Portfolio Image 3" onclick="openModal('image3.jpg')">
-            <img src="image4.jpg" alt="Portfolio Image 4" onclick="openModal('image4.jpg')">
-            <img src="image5.JPG" alt="Portfolio Image 5" onclick="openModal('image5.JPG')">
-            <img src="image6.JPG" alt="Portfolio Image 6" onclick="openModal('image6.JPG')">
-            <img src="image7.jpg" alt="Portfolio Image 7" onclick="openModal('image7.jpg')">
-            <img src="image8.JPG" alt="Portfolio Image 8" onclick="openModal('image8.JPG')">
-        </section>
 
-        <section id="video" class="video-section">
-            <h2>Video</h2>
-            <div class="video-container">
-                <video width="100%" controls>
-                    <source src="video.MOV" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-        </section>
-
-        <section class="contact">
-            <p>Contact:</p>
-            <p>Email: <a href="mailto:eowujy@gmail.com">eowujy@gmail.com</a></p>
-            <p>Instagram: <a href="https://instagram.com/ruzerit" target="_blank">@ruzerit</a></p>
-        </section>
-
-        <section class="about">
-            <h2>About Ga Yeon</h2>
-            <p>📍 <strong>Based in Seoul</strong></p>
-            <p>🎓 <strong>Philosophy major at Korea University</strong></p>
-            <p>🎭 <strong>A model like a blank canvas</strong></p>
-            <p>🚀 <strong>Embracing boundless thinking & genreless expression</strong></p>
-            <p>🗣️ <strong>Languages: Korean, Chinese, Japanese, English (not fully fluent)</strong></p>
-        </section>
+    <!-- Comp Card Modal -->
+    <div class="modal" id="imageModal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <span class="arrow arrow-left" onclick="prevCompCard()">&#10094;</span>
+        <img id="modalImage" src="" alt="Comp Card View">
+        <span class="arrow arrow-right" onclick="nextCompCard()">&#10095;</span>
     </div>
-    
-    <div class="modal" id="imageModal" onclick="closeModal()">
-        <span class="close">&times;</span>
-        <img id="modalImage" src="" alt="Detailed View">
-    </div>
+
+    <section class="gallery">
+        <img src="image1.jpg" alt="Portfolio Image 1" onclick="openModal('image1.jpg')">
+        <img src="image2.jpg" alt="Portfolio Image 2" onclick="openModal('image2.jpg')">
+        <img src="image3.jpg" alt="Portfolio Image 3" onclick="openModal('image3.jpg')">
+        <img src="image4.jpg" alt="Portfolio Image 4" onclick="openModal('image4.jpg')">
+        <img src="image5.JPG" alt="Portfolio Image 5" onclick="openModal('image5.JPG')">
+        <img src="image6.JPG" alt="Portfolio Image 6" onclick="openModal('image6.JPG')">
+        <img src="image7.jpg" alt="Portfolio Image 7" onclick="openModal('image7.jpg')">
+        <img src="image8.JPG" alt="Portfolio Image 8" onclick="openModal('image8.JPG')">
+    </section>
+
+    <section id="video" class="video-section">
+        <h2>Video</h2>
+        <div class="video-container">
+            <video width="100%" controls>
+                <source src="video.MOV" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </section>
+
+    <section class="contact">
+        <p>Contact:</p>
+        <p>Email: <a href="mailto:eowujy@gmail.com">eowujy@gmail.com</a></p>
+        <p>Instagram: <a href="https://instagram.com/ruzerit" target="_blank">@ruzerit</a></p>
+    </section>
+
+    <section class="about">
+        <h2>About Ga Yeon</h2>
+        <p>📍 <strong>Based in Seoul</strong></p>
+        <p>🎓 <strong>Philosophy major at Korea University</strong></p>
+        <p>🎭 <strong>A model like a blank canvas</strong></p>
+        <p>🚀 <strong>Embracing boundless thinking & genreless expression</strong></p>
+        <p>🗣️ <strong>Languages: Korean, Chinese, Japanese, English (not fully fluent)</strong></p>
+    </section>
 </body>
 </html>
