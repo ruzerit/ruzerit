@@ -56,20 +56,25 @@
         }
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 10px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
             padding: 20px;
             justify-content: center;
         }
 
         .gallery img {
             width: 100%;
+            max-width: 280px; /* 이미지 크기 조절 */
             height: auto;
             aspect-ratio: 3 / 4;
             object-fit: cover;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
-            max-width: 300px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05); /* 마우스 오버 시 확대 효과 */
         }
     </style>
     <script>
