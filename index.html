@@ -54,17 +54,22 @@
                 max-width: 90%;
             }
         }
+        /* 갤러리 중앙 정렬 */
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            justify-content: center; /* 가운데 정렬 */
+            align-items: center;
             padding: 20px;
-            justify-content: center;
+            max-width: 900px; /* 적절한 크기 제한 */
+            margin: 0 auto; /* 가로 중앙 정렬 */
         }
 
+        /* 개별 이미지 스타일 */
         .gallery img {
             width: 100%;
-            max-width: 260px; /* 이미지 크기 조절 */
+            max-width: 280px; /* 이미지 크기 조절 */
             height: auto;
             aspect-ratio: 3 / 4;
             object-fit: cover;
@@ -73,8 +78,22 @@
             transition: transform 0.3s ease-in-out;
         }
 
+        /* 이미지 호버 효과 */
         .gallery img:hover {
-            transform: scale(1.05); /* 마우스 오버 시 확대 효과 */
+            transform: scale(1.05);
+        }
+
+        /* Contact 섹션 중앙 정렬 */
+        .contact {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* 중앙 정렬 */
+            justify-content: center;
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
         }
     </style>
     <script>
