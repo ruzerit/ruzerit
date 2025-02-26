@@ -35,18 +35,24 @@
         }
     </style>
     <script>
-        function toggleCompCard() {
-            var compCard = document.getElementById('comp-card');
-            if (compCard.style.display === 'none' || compCard.style.display === '') {
-                compCard.style.display = 'flex';
-            } else {
-                compCard.style.display = 'none';
-            }
-        }
-        function openModal(imageSrc) {
-            document.getElementById('modalImage').src = imageSrc;
+        let compCardImages = ['compcard1.jpg', 'compcard2.jpg'];
+        let currentCompCardIndex = 0;
+        
+        function openCompCardModal() {
+            document.getElementById('modalImage').src = compCardImages[currentCompCardIndex];
             document.getElementById('imageModal').style.display = 'flex';
         }
+        
+        function nextCompCard() {
+            currentCompCardIndex = (currentCompCardIndex + 1) % compCardImages.length;
+            document.getElementById('modalImage').src = compCardImages[currentCompCardIndex];
+        }
+        
+        function prevCompCard() {
+            currentCompCardIndex = (currentCompCardIndex - 1 + compCardImages.length) % compCardImages.length;
+            document.getElementById('modalImage').src = compCardImages[currentCompCardIndex];
+        }
+        
         function closeModal() {
             document.getElementById('imageModal').style.display = 'none';
         }
