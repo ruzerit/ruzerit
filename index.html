@@ -54,6 +54,23 @@
                 max-width: 90%;
             }
         }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            padding: 20px;
+            justify-content: center;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 3 / 4;
+            object-fit: cover;
+            border-radius: 5px;
+            cursor: pointer;
+            max-width: 300px;
+        }
     </style>
     <script>
         let compCardImages = ['compcard1.jpg', 'compcard2.jpg'];
