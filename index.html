@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ga Yeon | Model Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Helvetica:wght@100;300;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Helvetica', sans-serif; margin: 0; padding: 0; background: #f8f8f8; color: #333; transition: background 0.5s, color 0.5s; }
+        body { font-family: 'Helvetica', Arial, sans-serif; margin: 0; padding: 0; background: #f8f8f8; color: #333; transition: background 0.5s, color 0.5s; }
         .container { width: 80%; margin: auto; text-align: center; }
 
         .cover {
@@ -18,9 +17,9 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-end;
             text-align: center;
-            padding-bottom: 20px; 
+            padding-bottom: 50px; 
         }
 
         /* 모바일에서 커버 이미지 더 작게 조정 */
@@ -28,7 +27,7 @@
             .cover {
                 height: 50vh; 
                 max-height: 450px;
-                background-position: top;
+                background-position: 50% 50%;
             }
         }
 
@@ -40,6 +39,14 @@
             opacity: 0;
             transform: translateY(-10px);
             animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        /* 📌 모바일에서 타이틀 폰트 크기 더 작게 조정 */
+        @media (max-width: 768px) {
+            .cover h1 {
+                font-size: 22px;
+                margin-bottom: 20px;
+            }
         }
 
         @keyframes fadeInUp {
@@ -83,7 +90,6 @@
             transition: opacity 0.3s ease, visibility 0.3s ease;
         }
 
-        /* 모달이 활성화될 때 */
         .modal.active {
             display: flex;
             opacity: 1;
@@ -157,7 +163,7 @@
         /* 모바일에서 갤러리 이미지 크기 조정 */
         @media (max-width: 600px) {
             .gallery img {
-                max-width: 45vw; /* 화면 너비의 45% 크기로 조정 */
+                max-width: 90vw; /* 화면의 90퍼라는 뜻 */
             }
         }
 
@@ -177,6 +183,11 @@
             max-width: 600px;
             margin: 20px auto;
             padding: 20px;
+        }
+
+        /* 📌 줄 간격 */
+        .contact p, .about p {
+            line-height: 1.6; /* 줄간격 여기로 조정 */
         }
     </style>
     <script>
@@ -210,6 +221,7 @@
 
         // ✅ 컴카드 모달에서 이전 이미지로 이동
         function prevCompCard() {
+            if (!compCardImages || compCardImages.length === 0) return;
             currentCompCardIndex = (currentCompCardIndex - 1 + compCardImages.length) %        compCardImages.length;
             document.getElementById('compCardImage').src = compCardImages[currentCompCardIndex];
         }
@@ -220,14 +232,19 @@
             document.getElementById('galleryImage').src = imageSrc;
             let modal = document.getElementById('galleryModal');
             modal.style.display = 'flex';
-            setTimeout(() => modal.classList.add('active'), 10;
+            setTimeout(() => { modal.classList.add('active'); }, 10);
         }
 
         // ✅ 갤러리 모달 닫기
         function closeGalleryModal() {
             let modal = document.getElementById('galleryModal');
+            if (!modal) return;
             modal.classList.remove('active');
-            setTimeout(() => {modal.style.display = 'none';}, 300); // 애니메이션 지속 시간과 동일하게 설정
+            setTimeout(() => {
+                    if (!modal.classList.contains('active')) {
+                        modal.style.display = 'none';
+                    }
+            }, 300);
         }
 
         // ✅ ESC 키를 누르면 열린 모달만 닫기
@@ -303,6 +320,7 @@
         <h2>Video</h2>
         <div class="video-container">
             <video width="100%" controls>
+                <source src="video.MOV" type="video/quicktime">
                 <source src="video.MOV" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
