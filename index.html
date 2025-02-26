@@ -56,20 +56,19 @@
         }
         /* 갤러리 중앙 정렬 */
         .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            display: flex;
+            flex-wrap: wrap; /* 줄 바꿈 허용 */
+            justify-content: center; /* 가로 중앙 정렬 */
             gap: 15px;
-            justify-content: center; /* 가운데 정렬 */
-            align-items: center;
             padding: 20px;
-            max-width: 900px; /* 적절한 크기 제한 */
-            margin: 0 auto; /* 가로 중앙 정렬 */
+            max-width: 1000px; /* 최대 크기 제한 */
+            margin: 0 auto; /* 전체 가로 중앙 정렬 */
         }
 
         /* 개별 이미지 스타일 */
         .gallery img {
             width: 100%;
-            max-width: 280px; /* 이미지 크기 조절 */
+            max-width: 250px; /* 갤러리 이미지 크기 일정하게 */
             height: auto;
             aspect-ratio: 3 / 4;
             object-fit: cover;
