@@ -284,6 +284,12 @@
 </head>
 <body>
     <div class="cover">
+        <picture>
+            <!-- 모바일 화면에서 표시할 이미지 -->
+            <source srcset="mobile-cover.jpg" media="(max-width: 768px)">
+            <!-- 기본(PC)에서 표시할 이미지 -->
+            <img src="desktop-cover.jpg" alt="Ga Yeon Cover" class="cover-image">
+        </picture>
         <h1>Ga Yeon | Model Portfolio</h1>
         <a href="#" class="btn" onclick="openCompCardModal()">Comp Card</a>
         <a href="#video" class="btn">Video Check</a>
