@@ -8,15 +8,92 @@
     <style>
         body { font-family: 'Helvetica', sans-serif; margin: 0; padding: 0; background: #f8f8f8; color: #333; transition: background 0.5s, color 0.5s; }
         .container { width: 80%; margin: auto; text-align: center; }
-        .cover { position: relative; width: 100%; aspect-ratio: 4 / 3; background: url('cover.JPG') center/cover no-repeat; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; text-align: center; padding-bottom: 50px; }
-        .cover h1 { font-size: 36px; font-weight: 100; color: #fff; margin-bottom: 10px; }
-        .btn { display: inline-block; margin: 5px 5px; padding: 12px 24px; background: rgba(255, 255, 255, 0.3); color: #fff; text-decoration: none; border-radius: 5px; font-size: 16px; font-weight: 300; border: none; transition: background 0.3s ease; }
-        .btn:hover { background: rgba(255, 255, 255, 0.5); }
+
+        .cover {
+            position: relative;
+            width: 100%;
+            height: 60vh; 
+            max-height: 600px; 
+            background: url('cover.JPG') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-bottom: 20px; 
+        }
+
+        /* 모바일에서 커버 이미지 더 작게 조정 */
+        @media (max-width: 768px) {
+            .cover {
+                height: 50vh; 
+                max-height: 450px;
+                background-position: top;
+            }
+        }
+
+        .cover h1 {
+            font-size: 32px;
+            font-weight: 300;
+            color: #fff;
+            margin-bottom: 15px;
+            opacity: 0;
+            transform: translateY(-10px);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(-10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px; /* 버튼 크기 유지 */
+            font-size: 16px; /* 이전과 동일한 글꼴 크기 */
+            background: rgba(255, 255, 255, 0.3); /* 투명한 느낌 유지 */
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 300;
+            border: none;
+            transition: background 0.3s ease, transform 0.2s ease-in-out;
+            margin: 5px 5px;
+        }
+
+        /* 마우스 오버 시 색상 변화 */
+        .cover .btn:hover {
+            background: rgba(255, 255, 255, 0.5);
+            transform: scale(1.05); /* 살짝 확대 효과 추가 */
+        }
 
         /* 모달 관련 스타일 */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); justify-content: center; align-items: center; }
-        .modal img { max-width: 80%; max-height: 80%; }
-        .close { position: absolute; top: 20px; right: 30px; font-size: 28px; color: #fff; cursor: pointer; }
+        .modal {
+            display: none;
+            opacity: 0;
+            visibility: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        /* 모달이 활성화될 때 */
+        .modal.active {
+            display: flex;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal img {
+            max-width: 80%;
+            max-height: 80%;
+        }
 
         /* 화살표 스타일 추가 */
         .arrow { position: absolute; top: 50%; transform: translateY(-50%); font-size: 32px; color: #fff; cursor: pointer; background: rgba(0, 0, 0, 0.5); padding: 10px; border-radius: 5px; }
@@ -77,6 +154,13 @@
             transition: transform 0.3s ease-in-out;
         }
 
+        /* 모바일에서 갤러리 이미지 크기 조정 */
+        @media (max-width: 600px) {
+            .gallery img {
+                max-width: 45vw; /* 화면 너비의 45% 크기로 조정 */
+            }
+        }
+
         /* 이미지 호버 효과 */
         .gallery img:hover {
             transform: scale(1.05);
@@ -99,37 +183,86 @@
         let compCardImages = ['compcard1.jpg', 'compcard2.jpg'];
         let currentCompCardIndex = 0;
 
+        // ✅ 컴카드 모달 열기
         function openCompCardModal() {
-            currentCompCardIndex = 0; // 첫 번째 이미지부터 시작
-            document.getElementById('modalImage').src = compCardImages[currentCompCardIndex];
-            document.getElementById('imageModal').style.display = 'flex';
+            closeGalleryModal(); // 갤러리 모달이 열려 있다면 닫기
+            currentCompCardIndex = 0;
+            document.getElementById('compCardImage').src = compCardImages[currentCompCardIndex];
+            let modal = document.getElementById('compCardModal');
+            modal.style.display = 'flex';
+            modal.classList.add('active');
         }
 
+        // ✅ 컴카드 모달 닫기
+        function closeCompCardModal() {
+            let modal = document.getElementById('compCardModal');
+            modal.classList.remove('active');
+            setTimeout(() => {
+            modal.style.display = 'none';
+            }, 300); // 애니메이션 지속 시간과 동일하게 설정
+        }
+
+        // ✅ 컴카드 모달에서 다음 이미지로 이동
         function nextCompCard() {
             currentCompCardIndex = (currentCompCardIndex + 1) % compCardImages.length;
-            document.getElementById('modalImage').src = compCardImages[currentCompCardIndex];
+            document.getElementById('compCardImage').src = compCardImages[currentCompCardIndex];
         }
 
+        // ✅ 컴카드 모달에서 이전 이미지로 이동
         function prevCompCard() {
-            currentCompCardIndex = (currentCompCardIndex - 1 + compCardImages.length) % compCardImages.length;
-            document.getElementById('modalImage').src = compCardImages[currentCompCardIndex];
+            currentCompCardIndex = (currentCompCardIndex - 1 + compCardImages.length) %        compCardImages.length;
+            document.getElementById('compCardImage').src = compCardImages[currentCompCardIndex];
         }
 
-        function closeModal() {
-            document.getElementById('imageModal').style.display = 'none';
+        // ✅ 갤러리 모달 열기
+        function openGalleryModal(imageSrc) {
+            closeCompCardModal(); // 컴카드 모달이 열려 있다면 닫기
+            document.getElementById('galleryImage').src = imageSrc;
+            let modal = document.getElementById('galleryModal');
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('active'), 10;
         }
 
-        function openModal(imageSrc) {
-            document.getElementById('modalImage').src = imageSrc;
-            document.getElementById('imageModal').style.display = 'flex';
+        // ✅ 갤러리 모달 닫기
+        function closeGalleryModal() {
+            let modal = document.getElementById('galleryModal');
+            modal.classList.remove('active');
+            setTimeout(() => {modal.style.display = 'none';}, 300); // 애니메이션 지속 시간과 동일하게 설정
         }
 
-        // 🔹 ESC 키를 누르면 모달 창 닫힘
+        // ✅ ESC 키를 누르면 열린 모달만 닫기
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') {
-                closeModal();
-        }
-    });
+                if (document.getElementById('compCardModal').classList.contains('active')) {
+                    closeCompCardModal();
+                } else if (document.getElementById('galleryModal').classList.contains('active')) {
+                    closeGalleryModal();
+                }
+            }
+        });
+
+        // ✅ 모달 바깥 클릭 시 닫기 기능 추가
+        document.addEventListener('DOMContentLoaded', function() {
+            let galleryModal = document.getElementById('galleryModal');
+            let compCardModal = document.getElementById('compCardModal');
+
+            if (galleryModal) {
+                galleryModal.addEventListener('click', function(event) {
+                    if (event.target === this) {
+                        closeGalleryModal();
+                    }
+                });
+            }
+
+            if (compCardModal) {
+                compCardModal.addEventListener('click', function(event) {
+                    if (event.target === this) {
+                        closeCompCardModal();
+                    }
+                });
+            }
+        });
+
 </script>
 </head>
 <body>
@@ -139,23 +272,31 @@
         <a href="#video" class="btn">Video Check</a>
     </div>
 
-    <!-- Comp Card Modal -->
-    <div class="modal" id="imageModal">
-        <span class="close" onclick="closeModal()">&times;</span>
+    
+    <!-- ✅ 컴카드 모달 -->
+    <div class="modal" id="compCardModal">
+        <span class="close" onclick="closeCompCardModal()">&times;</span>
         <span class="arrow arrow-left" onclick="prevCompCard()">&#10094;</span>
-        <img id="modalImage" src="" alt="Comp Card View">
+        <img id="compCardImage" src="" alt="Comp Card View">
         <span class="arrow arrow-right" onclick="nextCompCard()">&#10095;</span>
     </div>
 
+    <!-- ✅ 갤러리 모달 -->
+    <div class="modal" id="galleryModal">
+        <span class="close" onclick="closeGalleryModal()">&times;</span>
+        <img id="galleryImage" src="" alt="Gallery View">
+    </div>
+
     <section class="gallery">
-        <img src="image1.jpg" alt="Portfolio Image 1" onclick="openModal('image1.jpg')">
-        <img src="image2.jpg" alt="Portfolio Image 2" onclick="openModal('image2.jpg')">
-        <img src="image3.jpg" alt="Portfolio Image 3" onclick="openModal('image3.jpg')">
-        <img src="image4.jpg" alt="Portfolio Image 4" onclick="openModal('image4.jpg')">
-        <img src="image5.JPG" alt="Portfolio Image 5" onclick="openModal('image5.JPG')">
-        <img src="image6.JPG" alt="Portfolio Image 6" onclick="openModal('image6.JPG')">
-        <img src="image7.jpg" alt="Portfolio Image 7" onclick="openModal('image7.jpg')">
-        <img src="image8.JPG" alt="Portfolio Image 8" onclick="openModal('image8.JPG')">
+        <img src="image1.jpg" alt="Portfolio Image 1" onclick="openGalleryModal('image1.jpg')">
+        <img src="image2.jpg" alt="Portfolio Image 2" onclick="openGalleryModal('image2.jpg')">
+        <img src="image3.jpg" alt="Portfolio Image 3" onclick="openGalleryModal('image3.jpg')">
+        <img src="image4.jpg" alt="Portfolio Image 4" onclick="openGalleryModal('image4.jpg')">
+        <img src="image5.JPG" alt="Portfolio Image 5" onclick="openGalleryModal('image5.JPG')">
+        <img src="image6.JPG" alt="Portfolio Image 6" onclick="openGalleryModal('image6.JPG')">
+        <img src="image7.jpg" alt="Portfolio Image 7" onclick="openGalleryModal('image7.jpg')">
+        <img src="image8.JPG" alt="Portfolio Image 8" onclick="openGalleryModal('image8.JPG')">
+        <img src="image9.jpg" alt="Portfolio Image 9" onclick="openGalleryModal('image9.jpg')">
     </section>
 
     <section id="video" class="video-section">
