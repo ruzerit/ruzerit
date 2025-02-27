@@ -1,28 +1,12 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-        <!-- Google tag (gtag.js) -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-JP32DXJ7Z5"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-
-          gtag('config', 'G-JP32DXJ7Z5');
-        </script>
-
-        <link rel="stylesheet" href="style.css">
-        <script src="script.js" defer></script>
-
-    <link rel="canonical" href="https://ruzerit.com/">
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- ✅ SEO 최적화된 Title -->
     <title>모델 Ga Yeon(가연)의 포트폴리오 | 룩북 & 광고 모델</title>
 
-    <!-- ✅ 검색엔진 최적화를 위한 Meta 태그 -->
+    <!-- ✅ SEO 최적화된 Meta 태그 -->
     <meta name="description" content="모델 Ga Yeon(가연)의 포트폴리오. 룩북 모델, 광고 모델, 패션 모델 섭외를 원하시면 Ga Yeon의 다양한 작업물을 확인하세요.">
     <meta name="keywords" content="룩북 모델, 광고 모델, 패션 모델 섭외, 모델 가연, 모델 Ga Yeon, 모델 포트폴리오, 패션 촬영, 브랜드 룩북">
     <meta name="author" content="Ga Yeon">
@@ -54,10 +38,13 @@
         ],
         "description": "모델 Ga Yeon(가연)의 포트폴리오. 룩북 모델, 광고 모델, 패션 모델 섭외를 원하시면 Ga Yeon의 다양한 작업물을 확인하세요."
     }
-    </script>
+
+    <!-- ✅ 스타일 및 스크립트 연결 -->
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 
     <style>
-        body { font-family: 'Helvetica', Arial, sans-serif; margin: 0; padding: 0; background: #f8f8f8; color: #333; transition: background 0.5s, color 0.5s; }
+        .body { font-family: 'Helvetica', Arial, sans-serif; margin: 0; padding: 0; background: #f8f8f8; color: #333; transition: background 0.5s, color 0.5s; }
         .container { width: 80%; margin: auto; text-align: center; }
 
         .cover {
@@ -199,8 +186,8 @@
         }
 
         body.modal-open .gallery {
-            visibility: hidden;
-            display: none;
+            visibility: visible; 
+            display: flex;
         }
 
         .gallery img {
@@ -305,6 +292,8 @@
             line-height: 1.6; /* 줄간격 여기로 조정 */
         }
     </style>
+</head>
+
     <script>
         let compCardImages = ['compcard1.jpg', 'compcard2.jpg'];
         let currentCompCardIndex = 0;
@@ -402,49 +391,35 @@
         });
 
 </script>
-</head>
 
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>모델 가연의 갤러리</title>
-    <style>
-        #gallery {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-        }
-        .gallery-item img {
-            width: 150px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: transform 0.2s ease-in-out;
-        }
-        .gallery-item img:hover {
-            transform: scale(1.05);
-        }
-    </style>
-</head>
+    <!-- ✅ 커버 이미지 -->
+    <div class="cover">
+        <picture>
+            <source srcset="mobile-cover.JPG" media="(max-width: 768px)">
+            <img src="desktop-cover.JPG" alt="Ga Yeon Cover" class="cover-image" loading="lazy">
+        </picture>
 
-<body>
-    <h1>갤러리</h1>
-    <div id="gallery"></div>
+        <div class="cover-content">
+            <h1>Ga Yeon | Model Portfolio</h1>
+            <a href="#" class="btn" onclick="openCompCardModal()">Comp Card</a>
+            <a href="#video" class="btn">Video Check</a>
+        </div>
+    </div>
+
+
+    <!-- ✅ 갤러리 (이제 커버 아래로 이동됨) -->
+    <div id="gallery" class="gallery"></div>
 
     <script>
-        const API_KEY = "wjAS3yGtrE3IaSlslmBWe1GflN3X6uhp7mdtfzui";  // ✅ 생성한 API Key 입력
+        const API_KEY = "wjAS3yGtrE3IaSlslmBWe1GflN3X6uhp7mdtfzui";  
 
         async function loadGallery() {
             try {
                 const response = await fetch("https://httry9solh.execute-api.ap-northeast-2.amazonaws.com/prod/gallery", {
-                    headers: { 
-                "x-api-key": API_KEY  // ✅ API Key 포함 필수!
-                    }
+                    headers: { "x-api-key": API_KEY }
                 });
-                const data = await response.json();
 
+                const data = await response.json();
                 const galleryDiv = document.getElementById("gallery");
                 galleryDiv.innerHTML = ""; 
 
@@ -465,56 +440,34 @@
             }
         }
 
-        function openGalleryModal(imageSrc) {
-            document.getElementById("galleryImage").src = imageSrc;
-            document.getElementById("galleryModal").style.display = "flex";
-        }
-
-        function closeGalleryModal() {
-            document.getElementById("galleryModal").style.display = "none";
-        }
+        loadGallery();
     </script>
 
+     <!-- ✅ 컴카드 모달 -->
+<div class="modal" id="compCardModal">
+    <span class="close" onclick="closeCompCardModal()">&times;</span>
+    <span class="arrow arrow-left" onclick="prevCompCard()">&#10094;</span>
+    <img id="compCardImage" src="" alt="Comp Card View">
+    <span class="arrow arrow-right" onclick="nextCompCard()">&#10095;</span>
+</div> 
+
+    </section>
     <!-- ✅ 갤러리 모달 -->
     <div class="modal" id="galleryModal" style="display: none;">
         <span class="close" onclick="closeGalleryModal()">&times;</span>
         <img id="galleryImage" src="" alt="Gallery View">
     </div>
-</body>
-</html>
 
-<body>
-    <div class="cover">
-        <picture>
-            <source srcset="mobile-cover.JPG" media="(max-width: 768px)">
-            <img src="desktop-cover.JPG" alt="Ga Yeon Cover" class="cover-image" loading="lazy">
-        </picture>
-
-        <div class="cover-content">
-            <h1>Ga Yeon | Model Portfolio</h1>
-            <a href="#" class="btn" onclick="openCompCardModal()">Comp Card</a>
-            <a href="#video" class="btn">Video Check</a>
-       </div>
-    </div>
-
-    <!-- ✅ 컴카드 모달 -->
-    <div class="modal" id="compCardModal">
-        <span class="close" onclick="closeCompCardModal()">&times;</span>
-        <span class="arrow arrow-left" onclick="prevCompCard()">&#10094;</span>
-        <img id="compCardImage" src="" alt="Comp Card View">
-        <span class="arrow arrow-right" onclick="nextCompCard()">&#10095;</span>
-    </div>
-
+    <!-- ✅ 비디오 섹션 -->
     <section id="video" class="video-section">
-        <h2>Video</h2>
         <div class="video-container">
             <video width="100%" controls>
                 <source src="video.MP4" type="video/mp4">
-                Your browser does not support the video tag.
             </video>
         </div>
     </section>
 
+    <!-- ✅ Contact & About -->
     <section class="contact">
         <p>Contact:</p>
         <p>Email: <a href="mailto:eowujy@gmail.com">eowujy@gmail.com</a></p>
