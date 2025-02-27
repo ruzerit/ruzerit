@@ -434,15 +434,19 @@
     <div id="gallery"></div>
 
     <script>
+        const API_KEY = "wjAS3yGtrE3IaSlslmBWe1GflN3X6uhp7mdtfzui";  // ✅ 생성한 API Key 입력
+
         async function loadGallery() {
             try {
-                const galleryDiv = document.getElementById("gallery");
-                galleryDiv.innerHTML = "<p>📸 갤러리를 불러오는 중...</p>"; // 로딩 메시지 추가
-        
-                const response = await fetch("https://httry9solh.execute-api.ap-northeast-2.amazonaws.com/prod/gallery");
+                const response = await fetch("https://httry9solh.execute-api.ap-northeast-2.amazonaws.com/prod/gallery", {
+                    headers: { 
+                "x-api-key": API_KEY  // ✅ API Key 포함 필수!
+                    }
+                });
                 const data = await response.json();
 
-                galleryDiv.innerHTML = ""; // 기존 내용 초기화
+                const galleryDiv = document.getElementById("gallery");
+                galleryDiv.innerHTML = ""; 
 
                 data.images.forEach(url => {
                     const imgContainer = document.createElement("div");
@@ -450,7 +454,7 @@
 
                     const img = document.createElement("img");
                     img.src = url;
-                    img.onclick = () => openGalleryModal(url); // 클릭 시 모달 열기
+                    img.onclick = () => openGalleryModal(url);
 
                     imgContainer.appendChild(img);
                     galleryDiv.appendChild(imgContainer);
@@ -460,8 +464,6 @@
                 document.getElementById("gallery").innerHTML = "<p>🚨 갤러리를 불러오지 못했습니다.</p>";
             }
         }
-
-        loadGallery();
 
         function openGalleryModal(imageSrc) {
             document.getElementById("galleryImage").src = imageSrc;
