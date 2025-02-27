@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>갤러리 관리자 페이지</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 20px auto;
+            text-align: center;
+        }
+        #gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 10px;
+        }
+        .gallery-item {
+            display: flex;
+            align-items: center;
+            background: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: grab;
+        }
+        .gallery-item img {
+            width: 150px;
+            margin-right: 10px;
+            border-radius: 5px;
+        }
+        .delete-btn {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .save-btn, .logout-btn {
+            margin-top: 20px;
+            padding: 10px;
+            background: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .upload-btn {
+            margin-top: 10px;
+            padding: 10px;
+            background: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body onload="checkAuth()">
+    <h1>갤러리 관리</h1>
+
+    <!-- 이미지 업로드 -->
+    <input type="file" id="fileInput">
+    <button class="upload-btn" onclick="uploadImage()">이미지 업로드</button>
+
+    <div id="gallery"></div>
+
+    <button class="logout-btn" onclick="logout()">로그아웃</button>
+
+    <script>
+        const API_KEY = "wjAS3yGtrE3IaSlslmBWe1GflN3X6uhp7mdtfzui";
+        const API_URL = "https://httyr9solh.execute-api.ap-northeast-2.amazonaws.com/prod";
+
+        function checkAuth() {
+            if (localStorage.getItem("adminAuthenticated") !== "true") {
+                alert("🚨 관리자 로그인이 필요합니다!");
+                window.location.href = "admin-key.html";
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem("adminAuthenticated");
+            localStorage.removeItem("adminKeyVerified");
+            window.location.href = "admin-key.html";
+        }
+
+        let currentDraggedElement = null;
+
+        async function loadGallery() {
+            try {
+                const galleryDiv = document.getElementById("gallery");
+                galleryDiv.innerHTML = "<p>📸 갤러리를 불러오는 중...</p>";
+
+                const response = await fetch(`${API_URL}/gallery`, {
+                    headers: { "x-api-key": API_KEY }
+                });
+                const data = await response.json();
+
+                galleryDiv.innerHTML = "";
+
+                data.images.forEach((url, index) => {
+                    const fileName = url.split('/').pop();
+
+                    const container = document.createElement("div");
+                    container.classList.add("gallery-item");
+                    container.setAttribute("draggable", "true");
+                    container.dataset.filename = fileName;
+                    container.dataset.order = index;
+
+                    container.ondragstart = (event) => {
+                        currentDraggedElement = container;
+                    };
+                    container.ondragover = (event) => event.preventDefault();
+                    container.ondrop = (event) => {
+                        event.preventDefault();
+                        if (currentDraggedElement !== container) {
+                            galleryDiv.insertBefore(currentDraggedElement, container);
+                            updateOrder();
+                        }
+                    };
+
+                    const img = document.createElement("img");
+                    img.src = url;
+
+                    const deleteButton = document.createElement("button");
+                    deleteButton.innerText = "삭제";
+                    deleteButton.classList.add("delete-btn");
+                    deleteButton.onclick = () => deleteImage(fileName);
+
+                    container.appendChild(img);
+                    container.appendChild(deleteButton);
+                    galleryDiv.appendChild(container);
+                });
+            } catch (error) {
+                console.error("갤러리 불러오기 실패:", error);
+                document.getElementById("gallery").innerHTML = "<p>🚨 갤러리를 불러오지 못했습니다.</p>";
+            }
+        }
+
+        async function deleteImage(fileName) {
+            if (!confirm(`정말 삭제하시겠습니까?`)) return;
+
+            const response = await fetch(`${API_URL}/DELETE`, {
+                method: "DELETE",
+                headers: { 
+                    "Content-Type": "application/json",
+                    "x-api-key": API_KEY
+                },
+                body: JSON.stringify({ "file_name": fileName })
+            });
+
+            const result = await response.json();
+            alert(result.message);
+            loadGallery();
+        }
+
+        async function uploadImage() {
+            const fileInput = document.getElementById("fileInput");
+            if (!fileInput.files.length) {
+                alert("📂 파일을 선택하세요.");
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const maxSizeMB = 5;
+            if (file.size > maxSizeMB * 1024 * 1024) {
+                alert(`🚨 파일 크기는 최대 ${maxSizeMB}MB까지 허용됩니다.`);
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("image", file);
+
+            try {
+                const response = await fetch(`${API_URL}/upload`, {
+                    method: "POST",
+                    headers: { "x-api-key": API_KEY },
+                    body: formData
+                });
+
+                const result = await response.json();
+                alert(result.message);
+                loadGallery();
+            } catch (error) {
+                console.error("이미지 업로드 실패:", error);
+                alert("🚨 업로드에 실패했습니다.");
+            }
+        }
+
+        async function updateOrder() {
+            const galleryDiv = document.getElementById("gallery");
+            const items = Array.from(galleryDiv.children);
+            const newOrder = items.map((item, index) => ({
+                file_name: item.dataset.filename,
+                order: index
+            }));
+
+            try {
+                const response = await fetch(`${API_URL}/gallery-order`, {
+                    method: "PUT",
+                    headers: { 
+                        "Content-Type": "application/json",
+                        "x-api-key": API_KEY
+                    },
+                    body: JSON.stringify({ order: newOrder })
+                });
+
+                const result = await response.json();
+                console.log("순서 업데이트 결과:", result);
+            } catch (error) {
+                console.error("순서 업데이트 실패:", error);
+            }
+        }
+
+        loadGallery();
+    </script>
+</body>
+</html>

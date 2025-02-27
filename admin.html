@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 로그인</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        input {
+            padding: 10px;
+            margin: 10px;
+        }
+        button {
+            padding: 10px;
+            background: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>관리자 로그인</h1>
+    <input type="password" id="passwordInput" placeholder="비밀번호 입력">
+    <button onclick="checkPassword()">로그인</button>
+    <p id="errorMessage" style="color: red; display: none;">❌ 비밀번호가 틀렸습니다!</p>
+
+    <script>
+        function checkAuthKey() {
+            if (localStorage.getItem("adminKeyVerified") !== "true") {
+                alert("🚨 관리자 키 입력이 필요합니다!");
+                window.location.href = "admin-key.html"; // 키 입력 페이지로 이동
+            }
+        }
+
+        function checkPassword() {
+            const password = document.getElementById("passwordInput").value;
+            const correctPassword = "040210"; // ✅ 설정된 관리자 비밀번호
+
+            if (password === correctPassword) {
+                localStorage.setItem("adminAuthenticated", "true"); // ✅ 로그인 성공 후 인증 저장
+                window.location.href = "dashboard.html"; // ✅ 관리자 페이지로 이동
+            } else {
+                document.getElementById("errorMessage").style.display = "block";
+            }
+        }
+
+        checkAuthKey(); // 페이지 로드 시 관리자 키 검증
+    </script>
+</body>
+</html>
