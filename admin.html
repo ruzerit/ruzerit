@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <script>
+        const secretKey = "마음으로 봐야 보이는 것"; // ✅ 여기에 관리자 전용 키워드 설정
+
+        function checkSecretKey() {
+            const userKey = prompt("🔑");
+            if (userKey !== secretKey) {
+                alert("🚨 잘못된 접근입니다!");
+                window.location.href = "https://your-site.com"; // 홈페이지로 이동
+            }
+        }
+
+        checkSecretKey(); // 페이지 로드 시 확인
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>갤러리 관리자 로그인</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        input {
+            padding: 10px;
+            margin: 10px;
+        }
+        button {
+            padding: 10px;
+            background: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>관리자 로그인</h1>
+    <input type="password" id="passwordInput" placeholder="비밀번호 입력">
+    <button onclick="checkPassword()">로그인</button>
+
+    <script>
+        function checkPassword() {
+            const password = document.getElementById("passwordInput").value;
+            const correctPassword = "Wjy-134802";  // ✅ 비밀번호 설정
+
+            if (password === correctPassword) {
+                localStorage.setItem("adminAuthenticated", "true"); // ✅ 인증 상태 저장
+                window.location.href = "admin-dashboard.html"; // ✅ 관리자 페이지로 이동
+            } else {
+                alert("❌ 비밀번호가 틀렸습니다!");
+            }
+        }
+    </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>갤러리 관리자 페이지</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 20px auto;
+            text-align: center;
+        }
+        #gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 10px;
+        }
+        .gallery-item {
+            display: flex;
+            align-items: center;
+            background: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: grab;
+        }
+        .gallery-item img {
+            width: 150px;
+            margin-right: 10px;
+            border-radius: 5px;
+        }
+        .delete-btn {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .save-btn {
+            margin-top: 20px;
+            padding: 10px;
+            background: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body onload="checkAuth()">
+
+    <h1>갤러리 관리</h1>
+
+    <input type="file" id="fileInput" accept="image/*">
+    <button onclick="uploadImage()">사진 업로드</button>
+
+    <h2>업로드된 이미지</h2>
+    <div id="gallery"></div>
+    <button class="save-btn" onclick="saveOrder()">순서 저장</button>
+
+    <script>
+        const API_KEY = "your-api-key-here";  // ✅ API Gateway의 API Key 입력
+        const API_URL = "https://httry9solh.execute-api.ap-northeast-2.amazonaws.com/prod";
+
+        function checkAuth() {
+            if (localStorage.getItem("adminAuthenticated") !== "true") {
+                alert("🚨 관리자 로그인이 필요합니다!");
+                window.location.href = "admin.html";
+            }
+        }
+
+        let currentDraggedElement = null;
+
+        async function loadGallery() {
+            try {
+                const galleryDiv = document.getElementById("gallery");
+                galleryDiv.innerHTML = "<p>📸 갤러리를 불러오는 중...</p>";
+
+                const response = await fetch(`${API_URL}/gallery`, {
+                    headers: { "x-api-key": API_KEY }
+                });
+                const data = await response.json();
+
+                galleryDiv.innerHTML = "";
+
+                data.images.forEach(url => {
+                    const fileName = url.split('/').pop();
+
+                    const container = document.createElement("div");
+                    container.classList.add("gallery-item");
+                    container.setAttribute("draggable", "true");
+                    
+                    container.ondragstart = (event) => {
+                        currentDraggedElement = container;
+                    };
+                    container.ondragover = (event) => event.preventDefault();
+                    container.ondrop = (event) => {
+                        event.preventDefault();
+                        if (currentDraggedElement !== container) {
+                            galleryDiv.insertBefore(currentDraggedElement, container);
+                        }
+                    };
+
+                    const img = document.createElement("img");
+                    img.src = url;
+
+                    const deleteButton = document.createElement("button");
+                    deleteButton.innerText = "삭제";
+                    deleteButton.classList.add("delete-btn");
+                    deleteButton.onclick = () => deleteImage(fileName);
+
+                    container.appendChild(img);
+                    container.appendChild(deleteButton);
+                    galleryDiv.appendChild(container);
+                });
+            } catch (error) {
+                console.error("갤러리 불러오기 실패:", error);
+                document.getElementById("gallery").innerHTML = "<p>🚨 갤러리를 불러오지 못했습니다.</p>";
+            }
+        }
+
+        async function uploadImage() {
+            const fileInput = document.getElementById("fileInput");
+            const file = fileInput.files[0];
+            if (!file) {
+                alert("파일을 선택하세요!");
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onloadend = async function () {
+                const base64String = reader.result.split(",")[1];
+
+                const response = await fetch(`${API_URL}/upload`, {
+                    method: "POST",
+                    headers: { 
+                        "Content-Type": "application/json",
+                        "x-api-key": API_KEY
+                    },
+                    body: JSON.stringify({
+                        image_data: base64String,
+                        file_extension: file.name.split('.').pop()
+                    })
+                });
+
+                const result = await response.json();
+                alert(result.message);
+                loadGallery();
+            };
+        }
+
+        async function deleteImage(fileName) {
+            if (!confirm(`정말 삭제하시겠습니까?`)) return;
+
+            const response = await fetch(`${API_URL}/gallery`, {
+                method: "DELETE",
+                headers: { 
+                    "Content-Type": "application/json",
+                    "x-api-key": API_KEY
+                },
+                body: JSON.stringify({ "file_name": fileName })
+            });
+
+            const result = await response.json();
+            alert(result.message);
+            loadGallery();
+        }
+
+        async function saveOrder() {
+            const galleryDiv = document.getElementById("gallery");
+            const newOrder = Array.from(galleryDiv.children).map(container => 
+                container.querySelector("img").src
+            );
+
+            const response = await fetch(`${API_URL}/gallery/order`, {
+                method: "POST",
+                headers: { 
+                    "Content-Type": "application/json",
+                    "x-api-key": API_KEY
+                },
+                body: JSON.stringify({ "image_order": newOrder })
+            });
+
+            const result = await response.json();
+            alert(result.message);
+        }
+
+        loadGallery();
+    </script>
+
+</body>
+</html>
