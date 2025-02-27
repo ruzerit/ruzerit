@@ -431,7 +431,7 @@
         <img id="galleryImage" src="" alt="Gallery View">
     </div>
 
-    <section class="gallery" id="gallery">
+    <section class="gallery">
         <img src="image1.jpg" alt="Portfolio Image 1" loading="lazy" onclick="openGalleryModal('image1.jpg')">
         <img src="image2.jpg" alt="Portfolio Image 2" loading="lazy" onclick="openGalleryModal('image2.jpg')">
         <img src="image3.jpg" alt="Portfolio Image 3" loading="lazy" onclick="openGalleryModal('image3.jpg')">
@@ -469,51 +469,3 @@
     </section>
 </body>
 </html>
-<script>
-const API_KEY = "wjAS3yGtrE3IaSlslmBWe1GflN3X6uhp7mdtfzui";
-const API_URL = "https://httyr9solh.execute-api.ap-northeast-2.amazonaws.com/prod";
-
-async function loadGallery() {
-    try {
-        const galleryDiv = document.getElementById("gallery");
-        galleryDiv.innerHTML = "<p>📸 갤러리를 불러오는 중...</p>";
-
-        const response = await fetch(`${API_URL}/gallery`, {
-            headers: { "x-api-key": API_KEY }
-        });
-        const data = await response.json();
-
-        galleryDiv.innerHTML = "";
-
-        data.images.forEach((url) => {
-            const img = document.createElement("img");
-            img.src = url;
-            img.alt = "Portfolio Image";
-            img.loading = "lazy";
-            img.onclick = () => openGalleryModal(url);
-            galleryDiv.appendChild(img);
-        });
-    } catch (error) {
-        console.error("갤러리 불러오기 실패:", error);
-        document.getElementById("gallery").innerHTML = "<p>🚨 갤러리를 불러오지 못했습니다.</p>";
-    }
-}
-
-document.addEventListener("DOMContentLoaded", loadGallery);
-</script>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    if (localStorage.getItem("darkMode") === "enabled") {
-        document.body.classList.add("dark-mode");
-    }
-});
-
-function toggleDarkMode() {
-    document.body.classList.toggle("dark-mode");
-    if (document.body.classList.contains("dark-mode")) {
-        localStorage.setItem("darkMode", "enabled");
-    } else {
-        localStorage.removeItem("darkMode");
-    }
-}
-</script>
