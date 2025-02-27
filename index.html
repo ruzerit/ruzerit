@@ -406,7 +406,9 @@
 <body>
     <div class="cover">
         <picture>
-            <source srcset="mobile-cover.JPG" media="(max-width: 768px)">
+            <source srcset="mobile-cover.webp" type="image/webp" media="(max-width: 768px)">
+            <source srcset="mobile-cover.JPG" type="image/jpeg" media="(max-width: 768px)">
+            <source srcset="desktop-cover.webp" type="image/webp">
             <img src="desktop-cover.JPG" alt="Ga Yeon Cover" class="cover-image" loading="lazy">
         </picture>
 
@@ -432,15 +434,15 @@
     </div>
 
     <section class="gallery">
-        <img src="image1.jpg" alt="Portfolio Image 1" onclick="openGalleryModal('image1.jpg')">
-        <img src="image2.jpg" alt="Portfolio Image 2" onclick="openGalleryModal('image2.jpg')">
-        <img src="image3.jpg" alt="Portfolio Image 3" onclick="openGalleryModal('image3.jpg')">
-        <img src="image4.jpg" alt="Portfolio Image 4" onclick="openGalleryModal('image4.jpg')">
-        <img src="image5.JPG" alt="Portfolio Image 5" onclick="openGalleryModal('image5.JPG')">
-        <img src="image6.JPG" alt="Portfolio Image 6" onclick="openGalleryModal('image6.JPG')">
-        <img src="image7.jpg" alt="Portfolio Image 7" onclick="openGalleryModal('image7.jpg')">
-        <img src="image8.JPG" alt="Portfolio Image 8" onclick="openGalleryModal('image8.JPG')">
-        <img src="image9.JPG" alt="Portfolio Image 9" onclick="openGalleryModal('image9.JPG')">
+        <img src="image1.jpg" alt="Portfolio Image 1" loading="lazy" onclick="openGalleryModal('image1.jpg')">
+        <img src="image2.jpg" alt="Portfolio Image 2" loading="lazy" onclick="openGalleryModal('image2.jpg')">
+        <img src="image3.jpg" alt="Portfolio Image 3" loading="lazy" onclick="openGalleryModal('image3.jpg')">
+        <img src="image4.jpg" alt="Portfolio Image 4" loading="lazy" onclick="openGalleryModal('image4.jpg')">
+        <img src="image5.JPG" alt="Portfolio Image 5" loading="lazy" onclick="openGalleryModal('image5.JPG')">
+        <img src="image6.JPG" alt="Portfolio Image 6" loading="lazy" onclick="openGalleryModal('image6.JPG')">
+        <img src="image7.jpg" alt="Portfolio Image 7" loading="lazy" onclick="openGalleryModal('image7.jpg')">
+        <img src="image8.JPG" alt="Portfolio Image 8" loading="lazy" onclick="openGalleryModal('image8.JPG')">
+        <img src="image9.JPG" alt="Portfolio Image 9" loading="lazy" onclick="openGalleryModal('image9.JPG')">
     </section>
 
     <section id="video" class="video-section">
