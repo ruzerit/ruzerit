@@ -37,7 +37,7 @@
             padding: 5px 10px;
             cursor: pointer;
         }
-        .save-btn, .logout-btn {
+        .logout-btn {
             margin-top: 20px;
             padding: 10px;
             background: blue;
@@ -55,10 +55,9 @@
         }
     </style>
 </head>
-<body onload="checkAuth()">
+<body onload="checkAuth(); loadGallery();">
     <h1>갤러리 관리</h1>
 
-    <!-- 이미지 업로드 -->
     <input type="file" id="fileInput">
     <button class="upload-btn" onclick="uploadImage()">이미지 업로드</button>
 
@@ -161,29 +160,27 @@
             }
 
             const file = fileInput.files[0];
-            const maxSizeMB = 5;
-            if (file.size > maxSizeMB * 1024 * 1024) {
-                alert(`🚨 파일 크기는 최대 ${maxSizeMB}MB까지 허용됩니다.`);
-                return;
-            }
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = async function () {
+                const base64Data = reader.result.split(",")[1];
 
-            const formData = new FormData();
-            formData.append("image", file);
-
-            try {
                 const response = await fetch(`${API_URL}/upload`, {
                     method: "POST",
-                    headers: { "x-api-key": API_KEY },
-                    body: formData
+                    headers: { 
+                        "Content-Type": "application/json",
+                        "x-api-key": API_KEY
+                    },
+                    body: JSON.stringify({ 
+                        "file_name": file.name,
+                        "file_data": base64Data
+                    })
                 });
 
                 const result = await response.json();
                 alert(result.message);
                 loadGallery();
-            } catch (error) {
-                console.error("이미지 업로드 실패:", error);
-                alert("🚨 업로드에 실패했습니다.");
-            }
+            };
         }
 
         async function updateOrder() {
@@ -210,8 +207,6 @@
                 console.error("순서 업데이트 실패:", error);
             }
         }
-
-        loadGallery();
     </script>
 </body>
 </html>
