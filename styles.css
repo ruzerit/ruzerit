@@ -330,7 +330,7 @@ body.dark-mode .contact {
 /* ✅ 갤러리2 아이템 (세로 크기 일정 + 가로는 원본 비율 유지) */
 .gallery2-item {
     flex: 1 1 33.33vw; /* ✅ 한 줄에 3개씩 배치 */
-    height: 500px;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -344,7 +344,7 @@ body.dark-mode .contact {
 .gallery2-item img {
     width: auto;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
     cursor: pointer;
 }
 
