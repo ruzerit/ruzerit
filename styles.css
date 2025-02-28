@@ -323,7 +323,7 @@ body.dark-mode .contact {
     flex-wrap: wrap;
     gap: 0px; /* ✅ 이미지 사이 간격 최소화 */
     padding: 0px;
-    justify-content: center;
+    justify-content: space-between;
     align-items: flex-start;
 }
 
@@ -357,8 +357,8 @@ body.dark-mode .contact {
 /* ✅ 모바일에서 한 줄에 2개씩 배치 */
 @media (max-width: 768px) {
     .gallery2-item {
-        flex: 0 0 calc(50% -1px); /* ✅ 한 줄에 2개씩 배치 */
-        height: 350px;
+        flex: 1 1 50vw; /* ✅ 한 줄에 2개씩 배치 */
+        height: 50vh;
     }
 }
 
