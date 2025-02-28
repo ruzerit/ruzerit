@@ -174,33 +174,52 @@ body.dark-mode .contact {
 #darkModeToggle:hover {
     background: #555;
 }
-/* 모달 기본 숨김 */
+
+/* ✅ 모든 모달 창 기본 스타일 */
 .modal {
-    display: none;
     position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    display: flex;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* ✅ 정중앙 정렬 */
+    width: 90vw; /* ✅ 기본적으로 화면 너비의 90% 사용 */
+    max-width: 600px; /* ✅ 최대 너비 제한 */
+    height: auto;
+    display: none; /* ✅ 기본적으로 숨김 */
     align-items: center;
     justify-content: center;
+    background: rgba(0, 0, 0, 0.8); /* ✅ 반투명 배경 */
+    padding: 20px;
+    border-radius: 8px;
+    z-index: 1000;
 }
 
+/* ✅ 모달 콘텐츠 중앙 정렬 */
 .modal-content {
-    background: none; /* 배경 제거 */
-    padding: 0;
-    border-radius: 0;
-    box-shadow: none; /* 그림자 제거 */
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    background: #fff;
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px;
 }
 
-/* ✅ 모달 내 이미지 & 비디오의 크기 최적화 */
+/* ✅ 이미지 및 비디오 모달 내 요소 조정 */
 .modal img, .modal video {
-    max-width: 90%;
+    width: 100%;
+    height: auto;
     max-height: 80vh;
-    object-fit: contain; /* 원본 비율 유지 */
+    object-fit: contain;
+}
+
+/* ✅ 모바일에서 모달 크기 조정 */
+@media (max-width: 768px) {
+    .modal {
+        width: 95vw; /* ✅ 모바일에서 너비를 더 넓게 */
+        max-width: 500px; /* ✅ 최대 크기 제한 */
+        padding: 15px;
+    }
 }
 
 .close {
