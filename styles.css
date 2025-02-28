@@ -123,9 +123,18 @@ body.dark-mode {
     background: rgba(0, 0, 0, 0.9);
 }
 
+/* ✅ 다크모드가 활성화될 때 적용되는 클래스 */
 body.dark-mode .contact {
-    background-color: #1e1e1e;
-    color: #ffffff;
+    background-color: #1e1e1e !important;
+    color: #ffffff !important;
+}
+
+/* ✅ 다크모드 자동 감지 */
+@media (prefers-color-scheme: dark) {
+    .contact {
+        background-color: #1e1e1e !important;
+        color: #ffffff !important;
+    }
 }
 
 /* ✅ 다크 모드 스타일 (자동 감지) */
@@ -333,8 +342,8 @@ body.dark-mode .contact {
 
 /* ✅ 갤러리2 이미지 (가로 크기 원본 유지 + 세로 크기 일정) */
 .gallery2-item img {
-    width: 100%;
-    height: auto;
+    width: auto;
+    height: 100%;
     object-fit: contain;
     cursor: pointer;
 }

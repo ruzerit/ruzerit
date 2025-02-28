@@ -19,6 +19,30 @@ document.getElementById("videoCheckBtn").addEventListener("click", function () {
     openModal("modalVideoCheck");
 });
 
+// ✅ 컴카드 & 비디오 모달 열기 함수 추가
+function openModal(modalId) {
+    let modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = "flex";
+        setTimeout(() => {
+            modal.style.opacity = "1";
+            modal.style.visibility = "visible";
+        }, 50);
+    }
+}
+
+// ✅ 컴카드 & 비디오 모달 닫기 함수 추가
+function closeModal(modalId) {
+    let modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.opacity = "0";
+        modal.style.visibility = "hidden";
+        setTimeout(() => {
+            modal.style.display = "none";
+        }, 300);
+    }
+}
+
 // ✅ 초기 설정 (모달 숨김 및 비디오 자동 재생 방지)
 document.addEventListener("DOMContentLoaded", function () {
     [videoModal, compCardModal, galleryModal].forEach(modal => {
@@ -153,17 +177,10 @@ function closeGalleryModal() {
 // ✅ ESC 키로 열린 모달 닫기
 document.addEventListener("keydown", function (event) {
     if (event.key === "Escape") {
-        let modals = {
-            "modalVideoCheck": closeModal,
-            "modalCompCard": closeModal,
-            "galleryModal": closeGalleryModal,
-            "gallery2Modal": closeGallery2Modal
-        };
-
-        Object.keys(modals).forEach(modalId => {
+        ["modalVideoCheck", "modalCompCard", "galleryModal", "gallery2Modal"].forEach(modalId => {
             let modal = document.getElementById(modalId);
             if (modal && window.getComputedStyle(modal).display !== "none") {
-                modals[modalId](modalId);
+                closeModal(modalId);
             }
         });
     }
@@ -171,19 +188,12 @@ document.addEventListener("keydown", function (event) {
 
 // ✅ 모달 바깥 클릭 시 닫기
 document.addEventListener("DOMContentLoaded", function () {
-    let modals = {
-        "modalVideoCheck": closeModal,
-        "modalCompCard": closeModal,
-        "galleryModal": closeGalleryModal,
-        "gallery2Modal": closeGallery2Modal
-    };
-
-    Object.keys(modals).forEach(modalId => {
+    ["modalVideoCheck", "modalCompCard", "galleryModal", "gallery2Modal"].forEach(modalId => {
         let modal = document.getElementById(modalId);
         if (modal) {
             modal.addEventListener("click", function (event) {
                 if (event.target === modal) {
-                    modals[modalId](modalId);
+                    closeModal(modalId);
                 }
             });
         }
