@@ -187,9 +187,8 @@ body.dark-mode .contact {
     display: none; /* ✅ 기본적으로 숨김 */
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.8); /* ✅ 반투명 배경 */
+    background: none
     padding: 20px;
-    border-radius: 8px;
     z-index: 1000;
 }
 
@@ -199,10 +198,8 @@ body.dark-mode .contact {
     width: 100%;
     max-width: 100%;
     height: auto;
-    background: #fff;
     padding: 20px;
     text-align: center;
-    border-radius: 8px;
 }
 
 /* ✅ 이미지 및 비디오 모달 내 요소 조정 */
