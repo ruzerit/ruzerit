@@ -107,7 +107,6 @@ body {
     background: rgba(255, 255, 255, 0.5);
 }
 
-/* ✅ 모든 모달 창 기본 스타일 */
 .modal {
     position: fixed;
     top: 50%;
@@ -134,7 +133,6 @@ body {
     text-align: center;
 }
 
-/* ✅ 이미지 및 비디오 모달 내 요소 조정 */
 .modal img, .modal video {
     width: 100%;
     height: auto;
@@ -142,7 +140,6 @@ body {
     object-fit: contain;
 }
 
-/* ✅ 모바일에서 모달 크기 조정 */
 @media (max-width: 768px) {
     .modal {
         width: 95vw; /* ✅ 모바일에서 너비를 더 넓게 */
@@ -299,7 +296,6 @@ body {
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
-/* ✅ 갤러리2 이미지 (가로 크기 원본 유지 + 세로 크기 일정) */
 .gallery2-item img {
     width: auto;
     height: 100%;
@@ -307,13 +303,11 @@ body {
     cursor: pointer;
 }
 
-/* ✅ 스크롤 시 갤러리2 이미지 등장 효과 */
 .gallery2-item.visible {
     opacity: 1;
     transform: translateY(0);
 }
 
-/* ✅ 모바일에서 한 줄에 2개씩 배치 */
 @media (max-width: 768px) {
     .gallery2-item {
         flex: 1 1 50vw; /* ✅ 한 줄에 2개씩 배치 */
@@ -321,7 +315,6 @@ body {
     }
 }
 
-/* ✅ 갤러리2 모달 */
 #gallery2Modal {
     display: none;
     position: fixed;
@@ -335,7 +328,6 @@ body {
     text-align: center;
 }
 
-/* ✅ 모달 내부 */
 #gallery2Modal .modal-content {
     position: relative;
     max-width: 600px;
