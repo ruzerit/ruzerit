@@ -407,36 +407,44 @@ body {
     margin: 0 auto;
 }
 
-body.dark-mode,
+/* ✅ 다크 모드 (자동 감지) */
 @media (prefers-color-scheme: dark) {
-    background-color: #121212;
-    color: #ffffff;
-}
+    body {
+        background-color: #121212;
+        color: #ffffff;
+    }
 
-/* ✅ 버튼 다크 모드 스타일 */
-.dark-mode .btn,
-@media (prefers-color-scheme: dark) {
     .btn {
         background: rgba(255, 255, 255, 0.2);
         color: #ffffff;
     }
-}
 
-/* ✅ 모달 배경 색상 (다크 모드 적용) */
-.dark-mode .modal,
-@media (prefers-color-scheme: dark) {
     .modal {
         background: rgba(0, 0, 0, 0.9);
     }
+
+    .gallery-container {
+        background-color: #1a1a1a;
+    }
 }
 
-/* ✅ 컨택 섹션 다크 모드 스타일 */
-.dark-mode .contact,
-@media (prefers-color-scheme: dark) {
-    .contact {
-        background-color: #1e1e1e !important;
-        color: #ffffff !important;
-    }
+/* ✅ 다크 모드 (토글 버튼으로 변경 가능) */
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+.dark-mode .btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+}
+
+.dark-mode .modal {
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.dark-mode .gallery-container {
+    background-color: #1a1a1a;
 }
 
 /* ✅ 다크 모드 토글 버튼 */
