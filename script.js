@@ -61,16 +61,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // ✅ ESC 키 또는 외부 클릭 시 모달 닫기
-    document.addEventListener("keydown", function (event) {
-        if (event.key === "Escape") {
-            closeModal("modalVideoCheck");
-            closeModal("modalCompCard");
-            closeModal("galleryModal");
-            closeModal("gallery2Modal");
-        }
-    });
+    let modals = document.querySelectorAll(".modal");
 
-    document.querySelectorAll(".modal").forEach(modal => {
+    modals.forEach(modal => {
         modal.addEventListener("click", function (event) {
             if (!event.target.closest(".modal-content")) {
                 closeModal(modal.id);
@@ -78,18 +71,13 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // ✅ 모달 열기 및 닫기 함수
-    function openModal(modalId) {
-        let modal = document.getElementById(modalId);
-        if (modal) {
-            modal.style.display = "flex";
-            setTimeout(() => {
-                modal.style.opacity = "1";
-                modal.style.visibility = "visible";
-            }, 50);
+    document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+            modals.forEach(modal => closeModal(modal.id));
         }
-    }
+    });
 
+    // ✅ 모달 닫기 함수
     function closeModal(modalId) {
         let modal = document.getElementById(modalId);
         if (modal) {
