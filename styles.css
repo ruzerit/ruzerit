@@ -284,13 +284,6 @@ body.dark-mode .contact {
     object-fit: cover; /* ✅ 비율 유지하며 꽉 차게 조정 */
 }
 
-/* ✅ 모바일에서 한 번에 2개씩 보이도록 설정 */
-@media screen and (max-width: 768px) {
-    .gallery-item {
-        flex: 0 0 45%; /* 모바일에서는 한 번에 2개 보이게 */
-    }
-}
-
 .gallery-item.active {
     transform: scale(1.3);
     opacity: 1;
@@ -330,8 +323,6 @@ body.dark-mode .contact {
     font-size: 18px;
     margin: 20px 0;
 }
-
-
 
 /* ✅ 갤러리2 레이아웃 (한 줄에 3개씩 정렬 + 원본 비율 유지) */
 .gallery2-container {
