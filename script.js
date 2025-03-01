@@ -57,21 +57,22 @@ document.addEventListener("DOMContentLoaded", function () {
         videoElement.removeAttribute("autoplay");
         videoElement.pause();
     }
-    
-window.addEventListener("load", function () {
+
+document.addEventListener("DOMContentLoaded", function () {
+    const galleryContainer = document.querySelector(".gallery-container");
+    if (!galleryContainer) {
+        console.error("갤러리 컨테이너를 찾을 수 없습니다.");
+        return;
+    }
+
     setTimeout(() => {
         let initialIndex = 1;
         let containerCenter = galleryContainer.clientWidth / 2;
-        let selectedItem = galleryItems[initialIndex];
+        let selectedItem = document.querySelectorAll(".gallery-item")[initialIndex];
 
-        if (!selectedItem) {
-            console.error("갤러리 아이템을 찾을 수 없음.");
-            return;
-        }
+        if (!selectedItem) return;
 
-        console.log("초기 중앙 정렬:", selectedItem.offsetLeft);
         galleryContainer.scrollLeft = selectedItem.offsetLeft - containerCenter + selectedItem.offsetWidth / 2;
-        updateCenterImage();
     }, 500);
 });
 

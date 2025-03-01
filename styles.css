@@ -250,6 +250,11 @@ body.dark-mode .contact {
     height: auto;
 }
 
+#galleryModal {
+    max-width: 600px;
+    max-height: 90vh;
+}
+
 .gallery-container {
     display: flex;
     overflow-x: auto;
@@ -276,7 +281,8 @@ body.dark-mode .contact {
     transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
     position: relative;
     z-index: 1;
-    max-width: 250px;
+    width: 250px;
+    height: 330px;
     aspect-ratio: 3 / 4; /* ✅ 3:4 비율 유지 */
     overflow: hidden;
     display: flex;
@@ -290,7 +296,7 @@ body.dark-mode .contact {
     max-height: 100%;
     width: auto;
     height: auto;
-    object-fit: contain;
+    object-fit: cover;
 }
 
 .gallery-item.active {
