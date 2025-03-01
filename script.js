@@ -45,36 +45,67 @@ function closeModal(modalId) {
 
 document.addEventListener("DOMContentLoaded", function () {
     // ✅ 모달 숨김 및 비디오 자동 재생 방지
-    let modals = [videoModal, compCardModal, galleryModal];
+    let modals = ["modalVideoCheck", "modalCompCard", "galleryModal", "gallery2Modal"];
     
-    modals.forEach(modal => {
+    modals.forEach(modalId => {
+        let modal = document.getElementById(modalId);
         if (modal) {
             modal.style.display = "none";
             modal.style.opacity = "0";
             modal.style.visibility = "hidden";
+
+            // ✅ 모달 바깥 클릭 시 닫기
+            modal.addEventListener("click", function (event) {
+                if (!event.target.closest('.modal-content')) {
+                    if (typeof closeModal === "function") {
+                        closeModal(modalId);
+                    } else {
+                        console.error(`❌ closeModal 함수가 정의되지 않음: ${modalId}`);
+                    }
+                }
+            });
+        } else {
+            console.warn(`❌ ${modalId}를 찾을 수 없습니다.`);
         }
     });
 
+    // ✅ ESC 키로 열린 모달 닫기
+    document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+            modals.forEach(modalId => {
+                let modal = document.getElementById(modalId);
+                if (modal && modal.style.display !== "none") {
+                    if (typeof closeModal === "function") {
+                        closeModal(modalId);
+                    } else {
+                        console.error(`❌ closeModal 함수가 정의되지 않음: ${modalId}`);
+                    }
+                }
+            });
+        }
+    });
+
+    // ✅ 비디오 자동 재생 방지
     if (videoElement) {
         videoElement.removeAttribute("autoplay");
         videoElement.pause();
     }
 
-    // ✅ 갤러리 초기 정렬
+    // ✅ 갤러리 초기화
     const galleryContainer = document.querySelector(".gallery-container");
     if (!galleryContainer) {
-        console.error("갤러리 컨테이너를 찾을 수 없습니다.");
+        console.error("❌ 갤러리 컨테이너를 찾을 수 없습니다.");
         return;
     }
 
     setTimeout(() => {
         let galleryItems = document.querySelectorAll(".gallery-item");
         if (galleryItems.length === 0) {
-            console.warn("갤러리 아이템이 없습니다.");
+            console.warn("⚠️ 갤러리 아이템이 없습니다.");
             return;
         }
 
-        let initialIndex = Math.min(1, galleryItems.length - 1); // 갤러리 아이템이 1개 이하일 경우 대비
+        let initialIndex = Math.min(1, galleryItems.length - 1);
         let containerCenter = galleryContainer.clientWidth / 2;
         let selectedItem = galleryItems[initialIndex];
 
@@ -188,36 +219,9 @@ function closeGalleryModal() {
     }
 }
 
-// ✅ ESC 키로 열린 모달 닫기
-document.addEventListener("keydown", function (event) {
-    if (event.key === "Escape") {
-        ["modalVideoCheck", "modalCompCard", "galleryModal", "gallery2Modal"].forEach(modalId => {
-            let modal = document.getElementById(modalId);
-            if (modal && window.getComputedStyle(modal).display !== "none") {
-                closeModal(modalId);
-            }
-        });
-    }
-});
-
-// ✅ 모달 바깥 클릭 시 닫기
-document.addEventListener("DOMContentLoaded", function () {
-    ["modalVideoCheck", "modalCompCard", "galleryModal", "gallery2Modal"].forEach(modalId => {
-        let modal = document.getElementById(modalId);
-        if (modal) {
-            modal.addEventListener("click", function (event) {
-                if (event.target === modal) {
-                    closeModal(modalId);
-                }
-            });
-        }
-    });
-});
-
 let gallery2Images = document.querySelectorAll(".gallery2-item img");
 let currentGallery2Index = 0;
 
-// ✅ 갤러리2 모달 열기
 function openGallery2Modal(index) {
     currentGallery2Index = index;
     let imgElement = gallery2Images[index];

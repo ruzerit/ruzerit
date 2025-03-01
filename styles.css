@@ -123,14 +123,18 @@ body {
     z-index: 1000;
 }
 
-/* ✅ 모달 콘텐츠 중앙 정렬 */
 .modal-content {
     position: relative;
     width: 100%;
     max-width: 100%;
     height: auto;
-    padding: 20px;
     text-align: center;
+    padding: 0px;
+    text-align: center;
+    background: none !important; 
+    border: none !important;
+    box-shadow: none !important; 
+
 }
 
 .modal img, .modal video {
@@ -142,8 +146,8 @@ body {
 
 @media (max-width: 768px) {
     .modal {
-        width: 95vw; /* ✅ 모바일에서 너비를 더 넓게 */
-        max-width: 500px; /* ✅ 최대 크기 제한 */
+        width: 95vw;
+        max-width: 500px;
         padding: 15px;
     }
 }
@@ -157,13 +161,11 @@ body {
     color: white;
 }
 
-/* 갤러리 슬라이드 스타일 */
 .gallery-wrapper {
     overflow: hidden;
     width: 100%;
 }
 
-/* ✅ 갤러리 전체 영역을 확장 */
 .gallery {
     position: relative;
     width: 100%;
@@ -191,6 +193,10 @@ body {
     object-fit: contain;
     display: block;
     margin: 0 auto;
+    background: none !important; 
+    border: none !important; 
+    box-shadow: none !important; 
+    outline: none !important;
 }
 
 .gallery-container {
@@ -209,10 +215,9 @@ body {
 }
 
 .gallery-container::-webkit-scrollbar {
-    display: none; /* 스크롤바 숨기기 */
+    display: none;
 }
 
-/* ✅ 갤러리 아이템 크기 조정 */
 .gallery-item {
     width: 250px;
     height: 330px; /* ✅ 3:4 비율 유지 */
@@ -245,24 +250,22 @@ body {
     object-fit: contain;
 }
 
-/* ✅ 비활성화된 갤러리 아이템 */
 .gallery-item:not(.active) {
     transform: scale(0.85);
     opacity: 0.6;
 }
 
-/* ✅ 모바일에서 갤러리 크기 최적화 */
 @media screen and (max-width: 768px) {
     .gallery-container {
-        max-width: 100vw; /* 모바일에서 꽉 차게 */
+        max-width: 100vw; 
     }
 
     .gallery-item {
-        max-width: 220px; /* 모바일에서 이미지 크기 증가 */
+        max-width: 220px;
     }
 
     .gallery-item.active {
-        transform: scale(1.5); /* 모바일에서 더 크게 확대 */
+        transform: scale(1.5); 
     }
 }
 
@@ -273,7 +276,7 @@ body {
     margin: 20px 0;
 }
 
-/* ✅ 갤러리2 레이아웃 (한 줄에 3개씩 정렬 + 원본 비율 유지) */
+/* ✅ 갤러리2 레이아웃 */
 .gallery2-container {
     display: flex;
     flex-wrap: wrap;
@@ -404,9 +407,6 @@ body {
     margin: 0 auto;
 }
 
-
-
-/* ✅ 다크 모드 스타일 통합 */
 body.dark-mode,
 @media (prefers-color-scheme: dark) {
     background-color: #121212;
