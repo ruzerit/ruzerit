@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
         videoElement.pause();
     }
     
-window.onload = function () {
+window.addEventListener("load", function () {
     setTimeout(() => {
         let initialIndex = 1;
         let containerCenter = galleryContainer.clientWidth / 2;
@@ -72,8 +72,8 @@ window.onload = function () {
         console.log("초기 중앙 정렬:", selectedItem.offsetLeft);
         galleryContainer.scrollLeft = selectedItem.offsetLeft - containerCenter + selectedItem.offsetWidth / 2;
         updateCenterImage();
-    }, 300);
-};
+    }, 500);
+});
 
 // ✅ 중앙에 온 사진 강조 및 자동 정렬 유지
 function updateCenterImage() {
