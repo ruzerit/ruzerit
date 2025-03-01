@@ -288,7 +288,9 @@ body.dark-mode .contact {
 .gallery-item img {
     width: 100%; /* ✅ 이미지 크기 자동 조정 */
     height: 100%;
-    object-fit: cover; /* ✅ 비율 유지하며 꽉 차게 조정 */
+    width: auto;
+    height: auto;
+    object-fit: contain;
 }
 
 .gallery-item.active {
