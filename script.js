@@ -1,3 +1,7 @@
+// ✅ 전역 변수 선언
+let gallery2Images = [];
+let currentGallery2Index = 0;
+
 document.addEventListener("DOMContentLoaded", function () {
     // ✅ 요소 가져오기
     const galleryContainer = document.querySelector(".gallery-container");
@@ -15,26 +19,16 @@ document.addEventListener("DOMContentLoaded", function () {
     const gallery2Image = document.getElementById("gallery2Image");
     const gallery2Filename = document.getElementById("gallery2Filename");
     const gallery2Container = document.querySelector(".gallery2-container");
-    let gallery2Images = document.querySelectorAll(".gallery2-item img");
 
-    let currentGallery2Index = 0;
+    // ✅ 갤러리2 이미지 가져오기
+    gallery2Images = document.querySelectorAll(".gallery2-item img");
 
-    // ✅ 갤러리2 컨테이너 존재 여부 체크 후 보이게 설정
+    // ✅ 갤러리2 초기 표시 설정
     if (gallery2Container) {
         gallery2Container.style.visibility = "visible";
         gallery2Container.style.opacity = "1";
-
-        let gallery2Items = document.querySelectorAll(".gallery2-item");
-        gallery2Items.forEach(item => {
-            item.style.opacity = "1";
-            item.style.transform = "translateY(0)";
-        });
-
-        console.log("✅ 갤러리2 정상 로드 완료");
-    } else {
-        console.error("❌ 갤러리2 컨테이너가 존재하지 않습니다.");
     }
-    
+
     // ✅ 다크 모드 설정
     const darkModeToggle = document.getElementById("darkModeToggle");
     const body = document.body;
@@ -50,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // ✅ 컴카드 & 비디오 모달 버튼 클릭 시 열기 (버튼 ID와 연결)
+    // ✅ 컴카드 & 비디오 모달 버튼 클릭 시 열기
     const compCardBtn = document.getElementById("compCardBtn");
     const videoCheckBtn = document.getElementById("videoCheckBtn");
 
@@ -66,13 +60,13 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // ✅ 모달 닫기 기능 (ESC 및 외부 클릭)
+    // ✅ ESC 키 또는 외부 클릭 시 모달 닫기
     document.addEventListener("keydown", function (event) {
         if (event.key === "Escape") {
             closeModal("modalVideoCheck");
             closeModal("modalCompCard");
             closeModal("galleryModal");
-            closeGallery2Modal();
+            closeModal("gallery2Modal");
         }
     });
 
@@ -83,14 +77,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
-
-    if (gallery2Modal) {
-        gallery2Modal.addEventListener("click", function (event) {
-            if (!event.target.closest(".modal-content")) {
-                closeGallery2Modal();
-            }
-        });
-    }
 
     // ✅ 모달 열기 및 닫기 함수
     function openModal(modalId) {
@@ -135,16 +121,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // ✅ 갤러리2 모달 열기
     function openGallery2Modal(index) {
+        if (gallery2Images.length === 0) {
+            console.error("❌ 갤러리2 이미지가 없습니다.");
+            return;
+        }
+
         currentGallery2Index = index;
         let imgElement = gallery2Images[index];
 
         if (!imgElement) {
             console.error("❌ 이미지 요소를 찾을 수 없습니다.");
-            return;
-        }
-
-        if (!gallery2Modal || !gallery2Image || !gallery2Filename) {
-            console.error("❌ 갤러리2 모달 요소를 찾을 수 없습니다.");
             return;
         }
 
@@ -167,7 +153,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // ✅ 중앙에 온 사진 강조 및 자동 정렬 유지
+    // ✅ 중앙 정렬 유지
     function updateCenterImage() {
         let containerCenter = galleryContainer.clientWidth / 2;
         let closestIndex = 0;
@@ -199,51 +185,39 @@ document.addEventListener("DOMContentLoaded", function () {
             clearTimeout(window.scrollTimer);
             window.scrollTimer = setTimeout(updateCenterImage, 100);
         });
-
-        galleryContainer.addEventListener("mousedown", (e) => {
-            isDown = true;
-            startX = e.pageX - galleryContainer.offsetLeft;
-            startScrollLeft = galleryContainer.scrollLeft;
-        });
-
-        galleryContainer.addEventListener("mouseleave", () => {
-            isDown = false;
-        });
-
-        galleryContainer.addEventListener("mouseup", () => {
-            isDown = false;
-        });
-
-        galleryContainer.addEventListener("mousemove", (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-            let x = e.pageX - galleryContainer.offsetLeft;
-            let walk = (x - startX) * 2;
-            galleryContainer.scrollLeft = startScrollLeft - walk;
-        });
-
-        galleryContainer.addEventListener("touchstart", (e) => {
-            isDown = true;
-            startX = e.touches[0].pageX - galleryContainer.offsetLeft;
-            startScrollLeft = galleryContainer.scrollLeft;
-        }, { passive: true });
-
-        galleryContainer.addEventListener("touchmove", (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-            let x = e.touches[0].pageX - galleryContainer.offsetLeft;
-            let walk = (x - startX) * 2;
-            galleryContainer.scrollLeft = startScrollLeft - walk;
-        }, { passive: false });
-
-        galleryContainer.addEventListener("touchend", () => {
-            isDown = false;
-        });
     }
+
+    // ✅ 이전 / 다음 이미지 보기
+    function prevGallery2Image() {
+        if (currentGallery2Index > 0) {
+            currentGallery2Index--;
+            updateGallery2Modal();
+        }
+    }
+
+    function nextGallery2Image() {
+        if (currentGallery2Index < gallery2Images.length - 1) {
+            currentGallery2Index++;
+            updateGallery2Modal();
+        }
+    }
+
+    function updateGallery2Modal() {
+        let imgElement = gallery2Images[currentGallery2Index];
+        let filename = imgElement.parentElement.dataset.filename;
+
+        gallery2Image.src = imgElement.src;
+        gallery2Filename.innerText = filename;
+    }
+
+    // ✅ 스크롤 시 갤러리2 이미지 등장 애니메이션
+    document.addEventListener("scroll", function () {
+        let gallery2Items = document.querySelectorAll(".gallery2-item");
+        gallery2Items.forEach(item => {
+            let rect = item.getBoundingClientRect();
+            if (rect.top < window.innerHeight - 50) {
+                item.classList.add("visible");
+            }
+        });
+    });
 });
-
-    
-
-
-
-
