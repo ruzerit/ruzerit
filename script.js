@@ -64,9 +64,16 @@ document.addEventListener("DOMContentLoaded", function () {
         let containerCenter = galleryContainer.clientWidth / 2;
         let selectedItem = galleryItems[initialIndex];
 
+    if (!selectedItem) {
+        console.error("갤러리 아이템을 찾을 수 없음.");
+        return;
+    }
+
+    console.log("초기 중앙 정렬:", selectedItem.offsetLeft);
+
         galleryContainer.scrollLeft = selectedItem.offsetLeft - containerCenter + selectedItem.offsetWidth / 2;
         updateCenterImage();
-    }, 100); // 레이아웃이 완전히 로드된 후 실행되도록 약간의 지연 추가
+    }, 300); // 레이아웃이 완전히 로드된 후 실행되도록 약간의 지연 추가
 });
 
 

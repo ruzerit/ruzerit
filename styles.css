@@ -243,6 +243,13 @@ body.dark-mode .contact {
     overflow: hidden;
 }
 
+#galleryImage {
+    max-width: 40vw; /* ✅ 화면 너비의 40%까지만 */
+    max-height: 40vh; /* ✅ 화면 높이의 40%까지만 */
+    width: auto;
+    height: auto;
+}
+
 .gallery-container {
     display: flex;
     overflow-x: auto;
