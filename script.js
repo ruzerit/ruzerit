@@ -14,10 +14,27 @@ document.addEventListener("DOMContentLoaded", function () {
     const gallery2Modal = document.getElementById("gallery2Modal");
     const gallery2Image = document.getElementById("gallery2Image");
     const gallery2Filename = document.getElementById("gallery2Filename");
-    const gallery2Images = document.querySelectorAll(".gallery2-item img");
+    const gallery2Container = document.querySelector(".gallery2-container");
+    let gallery2Images = document.querySelectorAll(".gallery2-item img");
 
     let currentGallery2Index = 0;
 
+    // ✅ 갤러리2 컨테이너 존재 여부 체크 후 보이게 설정
+    if (gallery2Container) {
+        gallery2Container.style.visibility = "visible";
+        gallery2Container.style.opacity = "1";
+
+        let gallery2Items = document.querySelectorAll(".gallery2-item");
+        gallery2Items.forEach(item => {
+            item.style.opacity = "1";
+            item.style.transform = "translateY(0)";
+        });
+
+        console.log("✅ 갤러리2 정상 로드 완료");
+    } else {
+        console.error("❌ 갤러리2 컨테이너가 존재하지 않습니다.");
+    }
+    
     // ✅ 다크 모드 설정
     const darkModeToggle = document.getElementById("darkModeToggle");
     const body = document.body;
