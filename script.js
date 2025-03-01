@@ -43,9 +43,11 @@ function closeModal(modalId) {
     }
 }
 
-// ✅ 초기 설정 (모달 숨김 및 비디오 자동 재생 방지)
 document.addEventListener("DOMContentLoaded", function () {
-    [videoModal, compCardModal, galleryModal].forEach(modal => {
+    // ✅ 모달 숨김 및 비디오 자동 재생 방지
+    let modals = [videoModal, compCardModal, galleryModal];
+    
+    modals.forEach(modal => {
         if (modal) {
             modal.style.display = "none";
             modal.style.opacity = "0";
@@ -58,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
         videoElement.pause();
     }
 
-document.addEventListener("DOMContentLoaded", function () {
+    // ✅ 갤러리 초기 정렬
     const galleryContainer = document.querySelector(".gallery-container");
     if (!galleryContainer) {
         console.error("갤러리 컨테이너를 찾을 수 없습니다.");
@@ -66,13 +68,19 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     setTimeout(() => {
-        let initialIndex = 1;
+        let galleryItems = document.querySelectorAll(".gallery-item");
+        if (galleryItems.length === 0) {
+            console.warn("갤러리 아이템이 없습니다.");
+            return;
+        }
+
+        let initialIndex = Math.min(1, galleryItems.length - 1); // 갤러리 아이템이 1개 이하일 경우 대비
         let containerCenter = galleryContainer.clientWidth / 2;
-        let selectedItem = document.querySelectorAll(".gallery-item")[initialIndex];
+        let selectedItem = galleryItems[initialIndex];
 
-        if (!selectedItem) return;
-
-        galleryContainer.scrollLeft = selectedItem.offsetLeft - containerCenter + selectedItem.offsetWidth / 2;
+        if (selectedItem) {
+            galleryContainer.scrollLeft = selectedItem.offsetLeft - containerCenter + selectedItem.offsetWidth / 2;
+        }
     }, 500);
 });
 
