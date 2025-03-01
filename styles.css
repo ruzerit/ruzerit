@@ -129,7 +129,7 @@ body {
     max-width: 100%;
     height: auto;
     text-align: center;
-    padding: 0px;
+    padding: 0;
     text-align: center;
     background: none !important; 
     border: none !important;
@@ -141,7 +141,7 @@ body {
     width: 100%;
     height: auto;
     max-height: 80vh;
-    object-fit: contain;
+    object-fit: cover;
 }
 
 @media (max-width: 768px) {
@@ -187,7 +187,7 @@ body {
     overflow: hidden;
 }
 
-#galleryImage {
+#galleryImage,#gallery2Image {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
@@ -280,7 +280,7 @@ body {
 .gallery2-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 0px; /* ✅ 이미지 사이 간격 최소화 */
+    gap: 0px;
     padding: 0px;
     justify-content: space-between;
     align-items: flex-start;
@@ -288,7 +288,7 @@ body {
 
 /* ✅ 갤러리2 아이템 (세로 크기 일정 + 가로는 원본 비율 유지) */
 .gallery2-item {
-    flex: 1 1 33.33vw; /* ✅ 한 줄에 3개씩 배치 */
+    flex: 1 1 33.33%; /* ✅ 한 줄에 3개씩 배치 */
     height: 500px;
     display: flex;
     align-items: center;
@@ -313,7 +313,7 @@ body {
 
 @media (max-width: 768px) {
     .gallery2-item {
-        flex: 1 1 50vw; /* ✅ 한 줄에 2개씩 배치 */
+        flex: 1 1 50%; /* ✅ 한 줄에 2개씩 배치 */
         height: 50vh;
     }
 }
@@ -444,6 +444,10 @@ body.dark-mode {
 }
 
 .dark-mode .gallery-container {
+    background-color: #1a1a1a;
+}
+
+.dark-mode .gallery2-container {
     background-color: #1a1a1a;
 }
 
