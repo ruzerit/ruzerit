@@ -17,6 +17,17 @@ document.addEventListener("DOMContentLoaded", function () {
     galleryItems = document.querySelectorAll(".gallery-item img");
     gallery2Images = document.querySelectorAll(".gallery2-item img");
 
+    // ✅ 컴카드 및 비디오 모달 클릭 이벤트 추가
+    const compCardBtn = document.getElementById("compCardBtn");
+    const videoCheckBtn = document.getElementById("videoCheckBtn");
+
+    if (compCardBtn) {
+        compCardBtn.addEventListener("click", () => openModal("modalCompCard"));
+    }
+    if (videoCheckBtn) {
+        videoCheckBtn.addEventListener("click", () => openModal("modalVideoCheck"));
+    }
+
     // ✅ 갤러리1 이미지 클릭 이벤트 (모달 열기)
     galleryItems.forEach((img) => {
         img.addEventListener("click", function () {
@@ -31,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // ✅ 중앙 정렬 유지
     function updateCenterImage() {
-        if (!galleryContainer) return; // galleryContainer가 null이면 실행하지 않음.
+        if (!galleryContainer) return;
 
         let containerCenter = galleryContainer.clientWidth / 2;
         let closestIndex = 0;
@@ -74,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
-    
+
     window.addEventListener("scroll", revealGallery2Items);
     revealGallery2Items();
 
@@ -90,12 +101,6 @@ document.addEventListener("DOMContentLoaded", function () {
     document.addEventListener("keydown", (event) => {
         if (event.key === "Escape") {
             document.querySelectorAll(".modal").forEach(modal => closeModal(modal.id));
-        } else if (event.key === "ArrowRight") {
-            if (galleryModal.style.display !== "none") nextGalleryImage();
-            if (gallery2Modal.style.display !== "none") nextGallery2Image();
-        } else if (event.key === "ArrowLeft") {
-            if (galleryModal.style.display !== "none") prevGalleryImage();
-            if (gallery2Modal.style.display !== "none") prevGallery2Image();
         }
     });
 
