@@ -11,7 +11,7 @@ body {
 .cover {
     position: relative;
     width: 100%;
-    height: 56.25vw;
+    height: 56.25vw; /* 16:9 비율 적용 */
     max-height: 80vh;
     display: flex;
     flex-direction: column;
@@ -43,6 +43,14 @@ body {
     text-align: center;
 }
 
+@media (max-width: 768px) {
+ .cover {
+    height: 50vh; 
+    max-height: 450px;
+    background-position: 50% 50%;
+ }
+}
+
 .cover h1 {
     font-size: 32px;
     font-weight: 300;
@@ -53,6 +61,19 @@ body {
     animation: fadeInUp 0.8s ease-out forwards;
 }
 
+@media (max-width: 768px) {
+ .cover h1 {
+    font-size: 22px;
+    margin-bottom: 20px;
+ }
+}
+
+@keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(-10px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* 버튼 기본 스타일 */
 .btn {
     display: inline-block;
     padding: 12px 24px;
@@ -72,6 +93,7 @@ body {
     transform: scale(1.05);
 }
 
+        /* 버튼 호버 시 색상 변경 */
 .btn:hover {
     background: rgba(255, 255, 255, 0.5);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3); 
@@ -86,325 +108,27 @@ body {
     background: rgba(255, 255, 255, 0.5);
 }
 
-.modal {
-    position: fixed;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%); 
-    width: 100%;
-    height: 100%;
-    max-width: 800px;
-    padding: 20px;
-    height: auto;
-    display: none; 
-    opacity: 0;
-    align-items: center;
-    justify-content: center;
+/* ✅ 다크모드가 활성화될 때 적용되는 클래스 */
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+.dark-mode .btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+}
+
+.dark-mode .modal {
     background: rgba(0, 0, 0, 0.9);
-    transition: opacity 0.3s ease;
-    z-index: 1000;
 }
 
-.modal.show{
-    display: flex !important;
-    opacity:1;
-    visibility: visible;
+body.dark-mode .contact {
+    background-color: #1e1e1e;
+    color: #ffffff;
 }
 
-.modal-content {
-    position: relative;
-    width: 100%;
-    max-width: 100%;
-    height: auto;
-    text-align: center;
-    padding: 0;
-    text-align: center;
-    background: none; 
-    border-radius: 0;
-    box-shadow: none; 
-
-}
-
-.modal img, .modal video {
-    max-height: 90%;
-    max-height: 80vh;
-    object-fit: contain;
-}
-
-.close {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    font-size: 30px;
-    cursor: pointer;
-    color: #fff;
-    background: none;
-    border: none;
-}
-
-.gallery-wrapper {
-    overflow: hidden;
-    width: 100%;
-}
-
-.gallery {
-    position: relative;
-    width: 100%;
-    min-height: 40px;
-    padding: 20px 0;
-    overflow: hidden;
-}
-
-#galleryModal{
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.9);
-    width: 90vw;
-    max-width: 600px;
-    max-height: 90vh;
-    overflow: hidden;
-}
-
-#galleryImage{
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    display: block;
-    margin: 0 auto;
-    background: none; 
-    border: none; 
-    box-shadow: none; 
-    outline: none;
-}
-
-.gallery-container {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    white-space: nowrap;
-    -webkit-overflow-scrolling: touch;
-    gap: 10px;
-    padding: 0 5vw;
-    align-items: center;
-    justify-content: center;
-    height: 450px;
-    max-width: 100vw;
-    position: relative;
-}
-
-.gallery-container::-webkit-scrollbar {
-    display: none;
-}
-
-.gallery-item {
-    max-width: 250px;
-    aspect-ratio: 3/4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    flex: 0 0 auto;
-    scroll-snap-align: center;
-    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-    position: relative;
-    z-index: 1;
-}
-
-.gallery-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.gallery-item.active {
-    transform: scale(1.2);
-    opacity: 1;
-    z-index: 10;
-    max-width: 250px;
-    max-height: 330px;
-    aspect-ratio: 3 / 4;
-    z-index: 10;
-}
-
-.gallery-item.active img{
-    object-fit: contain;
-    height: 100%;
-}
-
-.gallery-item:not(.active) {
-    transform: scale(0.9);
-    opacity: 0.6;
-}
-
-.model-info {
-    text-align: center;
-    font-size: 18px;
-    margin: 20px 0;
-}
-
-.gallery2-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0px;
-    padding: 0;
-    justify-content: center;
-    align-items: flex-start;
-}
-
-.gallery2-item {
-    flex: 0 0 33.33%;
-    height: 500px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    opacity: 0; 
-    transform: translateY(50px);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-}
-
-.gallery2-item img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    cursor: pointer;
-}
-
-.gallery2-item.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-#gallery2Modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.9);
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
-
-#gallery2Modal .modal-content {
-    position: relative;
-    max-width: 600px;
-    padding: 20px;
-}
-
-#gallery2Modal img {
-    width: 100%;
-    height: auto;
-    max-height: 80vh;
-    object-fit: contain;
-}
-
-#gallery2Modal .close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 30px;
-    color: white;
-    cursor: pointer;
-}
-
-#gallery2Filename {
-    color: #fff;
-    margin-top: 10px;
-}
-
-#gallery2Modal .prev, #gallery2Modal .next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-    font-size: 24px;
-}
-
-#gallery2Modal .prev { left: 10px; }
-#gallery2Modal .next { right: 10px; }
-
-.contact {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    margin-top: 30px
-}
-
-.contact a {
-    color: inherit;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.contact a:hover {
-    text-decoration: underline;
-}
-
-.about img {
-    width: 100%;
-    max-width: 600px; 
-    aspect-ratio: 3 / 4;
-    object-fit: cover; 
-    display: block;
-    margin: 0 auto;
-}
-
-@media (max-width: 768px) {
-    .cover {
-       height: 50vh; 
-       max-height: 450px;
-       background-position: 50% 50%;
-    }
-    
-    .cover h1 {
-       font-size: 22px;
-       margin-bottom: 20px;
-    }
-    
-    .gallery-container {
-        height: 350px;
-        max-width: 100vw; 
-    }
-
-    .gallery-item {
-        max-width: 180px;
-    }
-
-    .gallery2-item {
-        flex: 1 1 50%;
-        height: 50vh;
-    }
-
-    .gallery-item.active {
-        transform: scale(1.3); 
-    }
-
-    .modal {
-        width: 95vw;
-        max-width: 500px;
-        padding: 15px;
-    }
-}
-
-@keyframes fadeInUp {
-    0% { opacity: 0; transform: translateY(-10px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
-
+/* ✅ 다크 모드 스타일 (자동 감지) */
 @media (prefers-color-scheme: dark) {
     body {
         background-color: #121212;
@@ -419,30 +143,11 @@ body {
     .modal {
         background: rgba(0, 0, 0, 0.9);
     }
-
-    .gallery-container {
-        background-color: #1a1a1a;
+    .contact {
+        background-color: #1e1e1e;
+        color: #ffffff;
     }
-}
-
-.dark-mode body{
-    background-color: #121212;
-    color: #ffffff;
-}
-
-.dark-mode .btn {
-    background: rgba(255, 255, 255, 0.2);
-    color: #ffffff;
-}
-
-.dark-mode .modal {
-    background: rgba(0, 0, 0, 0.9);
-}
-
-.dark-mode .gallery-container,
-.dark-mode .gallery2-container{
-    background-color: #1a1a1a;
-}
+    
 
 #darkModeToggle {
     position: fixed;
@@ -459,4 +164,267 @@ body {
 
 #darkModeToggle:hover {
     background: #555;
+}
+/* 모달 기본 숨김 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: none; /* 배경 제거 */
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none; /* 그림자 제거 */
+}
+
+/* ✅ 모달 내 이미지 & 비디오의 크기 최적화 */
+.modal img, .modal video {
+    max-width: 90%;
+    max-height: 80vh;
+    object-fit: contain; /* 원본 비율 유지 */
+}
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 30px;
+    cursor: pointer;
+    color: white;
+}
+
+/* 갤러리 슬라이드 스타일 */
+.gallery-wrapper {
+    overflow: hidden;
+    width: 100%;
+}
+
+/* ✅ 갤러리 전체 영역을 확장 */
+.gallery {
+    position: relative;
+    width: 100%;
+    min-height: 40px;
+    padding: 20px 0;
+    overflow: hidden;
+}
+
+.gallery-container {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    gap: 10px;
+    padding: 0 5vw;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    max-width: 100vw;
+}
+
+.gallery-container::-webkit-scrollbar {
+    display: none; /* 스크롤바 숨기기 */
+}
+
+/* ✅ 갤러리 아이템 크기 조정 */
+.gallery-item {
+    flex: 0 0 auto; /* 한 번에 3개씩 보이도록 설정 */
+    scroll-snap-align: center;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    position: relative;
+    z-index: 1;
+    max-width: 250px;
+    aspect-ratio: 3 / 4; /* ✅ 3:4 비율 유지 */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ✅ 갤러리 이미지 크기 조정 */
+.gallery-item img {
+    width: 100%; /* ✅ 이미지 크기 자동 조정 */
+    height: 100%;
+    object-fit: cover; /* ✅ 비율 유지하며 꽉 차게 조정 */
+}
+
+/* ✅ 모바일에서 한 번에 2개씩 보이도록 설정 */
+@media screen and (max-width: 768px) {
+    .gallery-item {
+        flex: 0 0 45%; /* 모바일에서는 한 번에 2개 보이게 */
+    }
+}
+
+.gallery-item.active {
+    transform: scale(1.3);
+    opacity: 1;
+    z-index: 10;
+    max-width: 250px;
+    aspect-ratio: 3 / 4;
+}
+
+.gallery-item.active img{
+    object-fit: contain;
+}
+
+/* ✅ 비활성화된 갤러리 아이템 */
+.gallery-item:not(.active) {
+    transform: scale(0.85);
+    opacity: 0.6;
+}
+
+/* ✅ 모바일에서 갤러리 크기 최적화 */
+@media screen and (max-width: 768px) {
+    .gallery-container {
+        max-width: 100vw; /* 모바일에서 꽉 차게 */
+    }
+
+    .gallery-item {
+        max-width: 220px; /* 모바일에서 이미지 크기 증가 */
+    }
+
+    .gallery-item.active {
+        transform: scale(1.5); /* 모바일에서 더 크게 확대 */
+    }
+}
+
+/* ✅ 키 & 3사이즈 정보 스타일 */
+.model-info {
+    text-align: center;
+    font-size: 18px;
+    margin: 20px 0;
+}
+
+
+
+/* ✅ 갤러리2 레이아웃 (한 줄에 3개씩 정렬 + 원본 비율 유지) */
+.gallery2-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0px; /* ✅ 이미지 사이 간격 최소화 */
+    padding: 0px;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* ✅ 갤러리2 아이템 (세로 크기 일정 + 가로는 원본 비율 유지) */
+.gallery2-item {
+    flex: 0 0 auto(33.33%); /* ✅ 한 줄에 3개씩 배치 */
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    opacity: 0; /* ✅ 초기 숨김 (스크롤 시 등장 효과) */
+    transform: translateY(50px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* ✅ 갤러리2 이미지 (가로 크기 원본 유지 + 세로 크기 일정) */
+.gallery2-item img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+/* ✅ 스크롤 시 갤러리2 이미지 등장 효과 */
+.gallery2-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ✅ 모바일에서 한 줄에 2개씩 배치 */
+@media (max-width: 768px) {
+    .gallery2-item {
+        flex: 0 0 50%; /* ✅ 한 줄에 2개씩 배치 */
+        height: 350px;
+    }
+}
+
+/* ✅ 갤러리2 모달 */
+#gallery2Modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* ✅ 모달 내부 */
+#gallery2Modal .modal-content {
+    position: relative;
+    max-width: 600px;
+    padding: 20px;
+}
+
+#gallery2Modal img {
+    width: 100%;
+    height: auto;
+    max-height: 80vh;
+    object-fit: contain;
+}
+
+/* ✅ 모달 파일명 표시 */
+#gallery2Filename {
+    color: #fff;
+    margin-top: 10px;
+}
+
+/* ✅ 모달 닫기 버튼 */
+#gallery2Modal .close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+}
+
+/* ✅ 슬라이드 화살표 */
+#gallery2Modal .prev, #gallery2Modal .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+#gallery2Modal .prev { left: 10px; }
+#gallery2Modal .next { right: 10px; }
+
+/* 연락처 및 소개 */
+.contact {
+    margin-top: 30px; /* 갤러리와 컨택란 간격 확보 */
+    padding: 20px;
+    background: white;
+}
+
+.about img {
+    width: 100%;
+    max-width: 600px; /* 가로 크기를 3:4 비율에 맞게 조정 */
+    aspect-ratio: 3 / 4; /* 가로 3 : 세로 4 비율 유지 */
+    object-fit: cover; /* 이미지가 비율을 유지하며 꽉 차게 표시 */
+    display: block;
+    margin: 0 auto;
 }
