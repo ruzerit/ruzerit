@@ -24,7 +24,6 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".gallery2-item").forEach((item) => {
         item.classList.add("visible");
     });
-});
 
     if (compCardBtn) {
         compCardBtn.addEventListener("click", () => openModal("modalCompCard"));
