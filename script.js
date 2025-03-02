@@ -82,35 +82,28 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // ✅ 모달 닫기 버튼(X) 및 ESC 키 닫기
-    document.querySelectorAll(".modal .close").forEach((btn) => {
-        btn.addEventListener("click", () => {
-            const modal = btn.closest(".modal");
-            if (modal) closeModal(modal.id);
-        });
-    });
-
-    document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape") {
-            document.querySelectorAll(".modal").forEach(modal => closeModal(modal.id));
-        }
-    });
-
     document.querySelectorAll(".modal").forEach((modal) => {
         modal.addEventListener("click", (event) => {
-            if (event.target === modal) {
-                closeModal(modal.id);
+            if (event.target === modal) closeModal(modal.id);
+        });
+    });
             }
         });
     });
 
     document.addEventListener("keydown", (event) => {
-        if (event.key === "ArrowRight") {
-            nextGalleryImage(); // ✅ 정상적으로 작동함
-        } else if (event.key === "ArrowLeft") {
-            prevGalleryImage(); // ✅ 정상적으로 작동함
+        switch (event.key) {
+            case "Escape":
+                document.querySelectorAll(".modal").forEach(modal => closeModal(modal.id));
+                break;
+            case "ArrowRight":
+                nextGalleryImage();
+                break;
+            case "ArrowLeft":
+                prevGalleryImage();
+                break;
         }
     });
-});
 
 // ✅ 모달 열기 함수 (전역)
 function openModal(modalId) {
