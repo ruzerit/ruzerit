@@ -109,17 +109,18 @@ body {
 
 .modal {
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* ✅ 정중앙 정렬 */
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%); 
     width: 90vw; /* ✅ 기본적으로 화면 너비의 90% 사용 */
-    max-width: 600px; /* ✅ 최대 너비 제한 */
+    max-width: 600px;
+    padding: 20px;
     height: auto;
-    display: none; /* ✅ 기본적으로 숨김 */
+    display: none; 
+    opacity: 0;
     align-items: center;
     justify-content: center;
     background: rgba(0, 0, 0, 0.9);
-    padding: 20px;
+    transition: opacity 0.3s ease;
     z-index: 1000;
 }
 
@@ -144,26 +145,26 @@ body {
     object-fit: cover;
 }
 
-@media (max-width: 768px) {
-    .modal {
-        width: 95vw;
-        max-width: 500px;
-        padding: 15px;
-    }
-}
-
 .close {
     position: absolute;
     top: 20px;
     right: 30px;
     font-size: 30px;
     cursor: pointer;
-    color: white;
+    color: #fff;
+    background: none;
+    border: none;
 }
 
 .gallery-wrapper {
     overflow: hidden;
     width: 100%;
+}
+
+.modal.show{
+    display: flex !important;
+    opacity:1;
+    visibility: visible;
 }
 
 .gallery {
@@ -258,21 +259,6 @@ body {
     opacity: 0.6;
 }
 
-@media screen and (max-width: 768px) {
-    .gallery-container {
-        height: 450px;
-        max-width: 100vw; 
-    }
-
-    .gallery-item {
-        max-width: 220px;
-    }
-
-    .gallery-item.active {
-        transform: scale(1.3); 
-    }
-}
-
 /* ✅ 키 & 3사이즈 정보 스타일 */
 .model-info {
     text-align: center;
@@ -313,13 +299,6 @@ body {
 .gallery2-item.visible {
     opacity: 1;
     transform: translateY(0);
-}
-
-@media (max-width: 768px) {
-    .gallery2-item {
-        flex: 1 1 50%; /* ✅ 한 줄에 2개씩 배치 */
-        height: 50vh;
-    }
 }
 
 #gallery2Modal {
@@ -408,11 +387,37 @@ body {
 
 .about img {
     width: 100%;
-    max-width: 600px; /* 가로 크기를 3:4 비율에 맞게 조정 */
-    aspect-ratio: 3 / 4; /* 가로 3 : 세로 4 비율 유지 */
-    object-fit: cover; /* 이미지가 비율을 유지하며 꽉 차게 표시 */
+    max-width: 600px; 
+    aspect-ratio: 3 / 4;
+    object-fit: cover; 
     display: block;
     margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .gallery-container {
+        height: 450px;
+        max-width: 100vw; 
+    }
+
+    .gallery-item {
+        max-width: 220px;
+    }
+
+    .gallery2-item {
+        flex: 1 1 50%;
+        height: 50vh;
+    }
+
+    .gallery-item.active {
+        transform: scale(1.3); 
+    }
+
+    .modal {
+        width: 95vw;
+        max-width: 500px;
+        padding: 15px;
+    }
 }
 
 /* ✅ 다크 모드 (자동 감지) */
@@ -437,7 +442,7 @@ body {
 }
 
 /* ✅ 다크 모드 (토글 버튼으로 변경 가능) */
-body.dark-mode {
+.dark-mode body{
     background-color: #121212;
     color: #ffffff;
 }
@@ -451,11 +456,8 @@ body.dark-mode {
     background: rgba(0, 0, 0, 0.9);
 }
 
-.dark-mode .gallery-container {
-    background-color: #1a1a1a;
-}
-
-.dark-mode .gallery2-container {
+.dark-mode .gallery-container,
+.dark-mode .gallery2-container{
     background-color: #1a1a1a;
 }
 

@@ -54,7 +54,6 @@
 </head>
 
 <body>
-    <!-- ✅ 1. 커버 (제목 & 유도 버튼) -->
     <section class="cover">
         <div class="cover-content">
             <h1>Gayeon | Model Portfolio</h1>
@@ -65,15 +64,16 @@
         </div>
     </section>   
 
-<div id="modalCompCard" class="modal">
+<div id="modalCompCard" class="modal" role="dialog" aria-modal="true">
     <div class="modal-content">
-       <span class="close" onclick="closeModal('modalCompCard')">&times;</span>
+       <img src="compcard.jpg" alt="Comp Card">
+       <button class="close" aria-label="모달 닫기">&times;</button>
        <img src="compcard.jpg" alt="Comp Card">
     </div>
 </div>
-<div id="modalVideoCheck" class="modal">
+<div id="modalVideoCheck" class="modal" role="dialog" aria-modal="true">
     <div class="modal-content">
-       <span class="close" onclick="closeModal('modalVideoCheck')">&times;</span>
+       <button class="close" aria-label="모달 닫기">&times;</button>
        <video controls>
            <source src="video.MP4" type="video/mp4">
        </video>
@@ -97,10 +97,12 @@
         </div>
     </section>
 
-<div class="modal" id="galleryModal">
+<div class="modal" id="galleryModal" role="dialog" aria-modal="true">
    <div class="modal-content">
-      <span class="close" onclick="closeGalleryModal()">&times;</span>
-      <img id="galleryImage" src="" alt="Gallery Image">
+      <button class="close" aria-label="모달 닫기">&times;</button>
+      <button class="prev">&#10094;</button>
+      <img id="galleryImage" alt="Gallery Image">
+      <button class="next">&#10095;</button>
    </div>
 </div>
 
@@ -165,12 +167,12 @@
 
     <!-- ✅ 갤러리2 모달 (슬라이드 가능) -->
     <div class="modal" id="gallery2Modal">
-        <span class="close" onclick="closeGallery2Modal()">&times;</span>
-        <div class="modal-content">
-            <button class="prev" onclick="prevGallery2Image()">&#10094;</button>
+       <div class="modal-content">
+           <button class="close" aria-label="모달 닫기">&times;</button>
+            <button class="prev">&#10094;</button>
             <img id="gallery2Image" src="" alt="Gallery View">
             <p id="gallery2Filename"></p>
-            <button class="next" onclick="nextGallery2Image()">&#10095;</button>
+            <button class="next">&#10095;</button>
         </div>
     </div> 
 
