@@ -62,7 +62,13 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // 갤러리2 이미지 클릭 이벤트 (기존과 동일한 방식, HTML의 onclick 제거) 
+    // 갤러리2 이미지 클릭 이벤트
+    function openGallery2Modal(index) {
+        currentGallery2Index = index;
+        updateGallery2Modal();
+        openModal("gallery2Modal");
+    } 
+    
     let gallery2Images = document.querySelectorAll(".gallery2-item img");
     document.querySelectorAll(".gallery2-item img").forEach((img, index) => {
         img.addEventListener("click", () => openGallery2Modal(index));

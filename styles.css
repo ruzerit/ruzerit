@@ -52,7 +52,6 @@ body {
     animation: fadeInUp 0.8s ease-out forwards;
 }
 
-/* 버튼 기본 스타일 */
 .btn {
     display: inline-block;
     padding: 12px 24px;
@@ -72,7 +71,6 @@ body {
     transform: scale(1.05);
 }
 
-        /* 버튼 호버 시 색상 변경 */
 .btn:hover {
     background: rgba(255, 255, 255, 0.5);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3); 
@@ -91,7 +89,7 @@ body {
     position: fixed;
     top: 50%; left: 50%;
     transform: translate(-50%, -50%); 
-    width: 90vw; /* ✅ 기본적으로 화면 너비의 90% 사용 */
+    width: 90vw;
     max-width: 600px;
     padding: 20px;
     height: auto;
@@ -180,7 +178,6 @@ body {
     outline: none !important;
 }
 
-
 .gallery-container {
     display: flex;
     overflow-x: auto;
@@ -188,11 +185,11 @@ body {
     scroll-behavior: smooth;
     white-space: nowrap;
     -webkit-overflow-scrolling: touch;
-    gap: 10px;
-    padding: 20px 5vw;
+    gap: 5px;
+    padding: 20px 2vw;
     align-items: center;
     justify-content: center;
-    height: 500px;
+    height: 450px;
     position: relative;
 }
 
@@ -202,12 +199,12 @@ body {
 
 .gallery-item {
     width: 250px;
-    height: 330px; /* ✅ 3:4 비율 유지 */
+    height: 330px;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    flex: 0 0 auto; /* 한 번에 3개씩 보이도록 설정 */
+    flex: 0 0 auto;
     scroll-snap-align: center;
     transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
     position: relative;
@@ -239,26 +236,23 @@ body {
     opacity: 0.6;
 }
 
-/* ✅ 키 & 3사이즈 정보 스타일 */
 .model-info {
     text-align: center;
     font-size: 18px;
     margin: 20px 0;
 }
 
-/* ✅ 갤러리2 레이아웃 */
 .gallery2-container {
     display: flex;
     flex-wrap: wrap;
     gap: 0px;
     padding: 0;
-    justify-content: space-between;
+    justify-content: center;
     align-items: flex-start;
 }
 
-/* ✅ 갤러리2 아이템 (세로 크기 일정 + 가로는 원본 비율 유지) */
 .gallery2-item {
-    flex: 1 1 33.33%; /* ✅ 한 줄에 3개씩 배치 */
+    flex: 1 1 33.33%;
     height: 500px;
     display: flex;
     align-items: center;
@@ -321,13 +315,11 @@ body {
     cursor: pointer;
 }
 
-/* ✅ 모달 파일명 표시 */
 #gallery2Filename {
     color: #fff;
     margin-top: 10px;
 }
 
-/* ✅ 슬라이드 화살표 */
 #gallery2Modal .prev, #gallery2Modal .next {
     position: absolute;
     top: 50%;
@@ -343,9 +335,8 @@ body {
 #gallery2Modal .prev { left: 10px; }
 #gallery2Modal .next { right: 10px; }
 
-/* 연락처 및 소개 */
 .contact {
-    text-align: center; /* ✅ 텍스트 중앙 정렬 */
+    text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -354,7 +345,6 @@ body {
     margin-top: 30px
 }
 
-/* ✅ 컨택란 안의 링크 스타일 */
 .contact a {
     color: inherit;
     text-decoration: none;
@@ -387,12 +377,12 @@ body {
     }
     
     .gallery-container {
-        height: 450px;
+        height: 350px;
         max-width: 100vw; 
     }
 
     .gallery-item {
-        max-width: 220px;
+        max-width: 180px;
     }
 
     .gallery2-item {
@@ -416,7 +406,6 @@ body {
     100% { opacity: 1; transform: translateY(0); }
 }
 
-/* ✅ 다크 모드 (자동 감지) */
 @media (prefers-color-scheme: dark) {
     body {
         background-color: #121212;
@@ -437,7 +426,6 @@ body {
     }
 }
 
-/* ✅ 다크 모드 (토글 버튼으로 변경 가능) */
 .dark-mode body{
     background-color: #121212;
     color: #ffffff;
@@ -457,7 +445,6 @@ body {
     background-color: #1a1a1a;
 }
 
-/* ✅ 다크 모드 토글 버튼 */
 #darkModeToggle {
     position: fixed;
     top: 20px;
