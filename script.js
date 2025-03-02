@@ -22,9 +22,6 @@ document.addEventListener("DOMContentLoaded", function () {
     compCardBtn.addEventListener("click", () => openModal("modalCompCard"));
     videoCheckBtn.addEventListener("click", () => openModal("modalVideoCheck"));
 
-    // 전역 변수에 요소 할당
-    galleryModal   = galleryModalEl;
-    galleryImage   = galleryImageEl;
     gallery2Modal  = gallery2ModalEl;
     gallery2Image  = gallery2ImageEl;
     gallery2Filename = gallery2FilenameEl;
@@ -67,7 +64,6 @@ document.addEventListener("DOMContentLoaded", function () {
             window.scrollTimer = setTimeout(updateCenterImage, 100);
         });
     }
-
 
     // 갤러리2 이미지 클릭 이벤트
     function openGallery2Modal(index) {
