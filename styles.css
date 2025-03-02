@@ -89,13 +89,11 @@ body {
 .modal {
     position: fixed;
     top: 50%; left: 50%;
-    transform: translate(-50%, -50%); 
+    transform: translate(-50%, -50%);
     width: 100%;
     height: 100%;
     max-width: 800px;
     padding: 20px;
-    height: auto;
-    display: none; 
     opacity: 0;
     align-items: center;
     justify-content: center;
@@ -104,9 +102,9 @@ body {
     z-index: 1000;
 }
 
-.modal.show{
-    display: flex !important;
-    opacity:1;
+.modal.show {
+    display: flex !important; 
+    opacity: 1;
     visibility: visible;
 }
 
@@ -125,7 +123,6 @@ body {
 }
 
 .modal img, .modal video {
-    max-height: 90%;
     max-height: 80vh;
     object-fit: contain;
 }
@@ -170,9 +167,10 @@ body {
     text-align: center;
 }
 
-#galleryModal img {
+#galleryModal img,
+#gallery2Modal img {
     width: auto;
-    height: auto;
+    height: auto; 
     max-width: 100%;
     max-height: 100vh;
     object-fit: contain;
@@ -302,16 +300,6 @@ body {
     background: none; /* 테두리 제거 */
     border: none;
     box-shadow: none;
-}
-
-#gallery2Modal img {
-    width: auto;
-    height: auto;
-    max-width: 100%;
-    max-height: 100vh;
-    object-fit: contain;
-    display: block;
-    margin: auto;
 }
 
 #gallery2Modal .close {
@@ -444,38 +432,20 @@ body {
     }
 }
 
-.dark-mode body{
+.dark-mode body, 
+@media (prefers-color-scheme: dark) {
     background-color: #121212;
     color: #ffffff;
 }
 
-.dark-mode .btn {
-    background: rgba(255, 255, 255, 0.2);
-    color: #ffffff;
-}
-
-.dark-mode .modal {
+.dark-mode .modal, 
+@media (prefers-color-scheme: dark) .modal {
     background: rgba(0, 0, 0, 0.9);
 }
 
-.dark-mode .gallery-container,
-.dark-mode .gallery2-container{
+.dark-mode .gallery-container, 
+.dark-mode .gallery2-container,
+@media (prefers-color-scheme: dark) .gallery-container, 
+@media (prefers-color-scheme: dark) .gallery2-container {
     background-color: #1a1a1a;
-}
-
-#darkModeToggle {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: #333;
-    color: #fff;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background 0.3s ease;
-}
-
-#darkModeToggle:hover {
-    background: #555;
 }
