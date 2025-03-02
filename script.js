@@ -21,6 +21,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const compCardBtn = document.getElementById("compCardBtn");
     const videoCheckBtn = document.getElementById("videoCheckBtn");
 
+    document.querySelectorAll(".gallery2-item").forEach((item) => {
+        item.classList.add("visible");
+    });
+});
+
     if (compCardBtn) {
         compCardBtn.addEventListener("click", () => openModal("modalCompCard"));
     }
