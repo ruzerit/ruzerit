@@ -255,7 +255,7 @@ body {
 }
 
 .gallery2-item {
-    flex: 0 0 auto(33.33%);
+    flex: 0 0 33.33%;
     height: 500px;
     display: flex;
     align-items: center;
