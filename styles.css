@@ -7,6 +7,7 @@ body {
     transition: background 0.5s, color 0.5s; }
         .container { width: 80%; margin: auto; text-align: center; 
 }
+
 .cover {
     position: relative;
     width: 100%;
@@ -225,6 +226,7 @@ body {
     max-width: 250px;
     max-height: 330px;
     aspect-ratio: 3 / 4;
+    z-index: 10;
 }
 
 .gallery-item.active img{
