@@ -20,13 +20,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const gallery2Filename = document.getElementById("gallery2Filename");
     const gallery2Container = document.querySelector(".gallery2-container");
 
-    gallery2Images = document.querySelectorAll(".gallery2-item img");
-
     compCardBtn.addEventListener("click", () => openModal("modalCompCard"));
     videoCheckBtn.addEventListener("click", () => openModal("modalVideoCheck"));
 
-
-    // 3. 갤러리1 이미지 클릭 이벤트 (모든 .gallery-item img에 핸들러 등록)
+    // 갤러리1 이미지 클릭 이벤트 (모든 .gallery-item img에 핸들러 등록)
     document.querySelectorAll(".gallery-item img").forEach((img) => {
         img.addEventListener("click", () => openGalleryModal(img));
     });
@@ -65,7 +62,8 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // 갤러리2 이미지 클릭 이벤트 (기존과 동일한 방식, HTML의 onclick 제거)
+    // 갤러리2 이미지 클릭 이벤트 (기존과 동일한 방식, HTML의 onclick 제거) 
+    let gallery2Images = document.querySelectorAll(".gallery2-item img");
     document.querySelectorAll(".gallery2-item img").forEach((img, index) => {
         img.addEventListener("click", () => openGallery2Modal(index));
     });
@@ -164,10 +162,11 @@ function openModal(modalId) {
         modal.style.opacity = "1";
     }
 }
+
 function closeModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
-        // 모달 숨기기: opacity 서서히 변경 후 display none 처리
+        modal.style.transition = "opacity 0.3s ease";
         modal.style.opacity = "0";
         modal.style.visibility = "hidden";
         setTimeout(() => { modal.style.display = "none"; }, 300);
